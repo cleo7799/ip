@@ -34,18 +34,18 @@ public class Vicky {
                 }
                 print_line();
 
-            } else if (command.contains("unmark")) {
+            } else if (command.equals("unmark")) {
                 int index = scanner.nextInt() - 1;
                 if (index < counter) {
                     todo_list[index].unmark();
                     System.out.println(indent + "OK, I've marked this task as not done yet:");
-                    System.out.println(todo_list[index]);
+                    System.out.println(indent + todo_list[index]);
                 } else {
                     System.out.println(indent + "CHIBAI THE INDEX OUT OF BOUNDS LA");
                 }
                 print_line();
 
-            } else if (command.contains("mark")) {
+            } else if (command.equals("mark")) {
                 int index = scanner.nextInt() - 1;
                 if (index < counter) {
                     todo_list[index].mark();
@@ -59,12 +59,15 @@ public class Vicky {
 
             // Adding a new task
             } else if (!command.isEmpty()) {
-                String fullCommand = command + scanner.nextLine();
-                System.out.println(indent + "added: " + fullCommand);
-                print_line();
-                Task t = new Task(fullCommand);
-                Vicky.todo_list[counter] = t;
-                Vicky.counter++;
+                String description = scanner.nextLine();
+
+                if (command.equals("todo")||command.equals("deadline")||command.equals("event")) {
+                    Vicky.addTask(command, description);
+
+                } else {
+                    System.out.println(indent + command + description);
+                    print_line();
+                }
 
             }
 
@@ -82,6 +85,33 @@ public class Vicky {
     public static void print_line() {
         int length = 40;
         System.out.println(indent + "_".repeat(length));
+    }
+
+    private static void addTask(String taskType, String description) {
+        Task t;
+        if (taskType.equals("todo")) {
+            t = new Task(description);
+
+        } else if (taskType.equals("deadline")) {
+            String[] temp = description.split(" /by ");
+            String task = temp[0];
+            String by = temp[1];
+            t = new Deadline(task, by);
+
+        } else {
+            String[] temp = description.split(" /from ");
+            String task = temp[0];
+            String[] duration = temp[1].split(" /to ");
+            String from = duration[0];
+            String by = duration[1];
+            t = new Event(task, from, by);
+        }
+        System.out.println(indent + "Ok! I've added this task:\n" + indent + indent + t.toString());
+        Vicky.todo_list[counter] = t;
+        Vicky.counter++;
+        System.out.println(indent + "Now you have " + Vicky.counter + " tasks in your list. :)");
+        print_line();
+
     }
 
 

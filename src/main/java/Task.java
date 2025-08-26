@@ -18,7 +18,7 @@ public class Task {
     @Override
     public String toString() {
         char p = this.done ? 'X' : ' ';
-        return String.format("[%c] %s", p, this.name);
+        return String.format("[T] [%c] %s", p, this.name);
     }
 
 }
