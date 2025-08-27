@@ -65,7 +65,8 @@ public class Vicky {
                     Vicky.addTask(command, description);
 
                 } else {
-                    System.out.println(indent + command + description);
+                    //System.out.println(indent + command + description);
+                    System.out.println(indent + "Walao eh chibai I don't know what that means :(");
                     print_line();
                 }
 
@@ -88,32 +89,71 @@ public class Vicky {
     }
 
     private static void addTask(String taskType, String description) {
-        Task t;
+        Task t = null;
+        boolean hasDescription;
+        boolean hasTime;
         if (taskType.equals("todo")) {
-            t = new Task(description);
+
+            hasDescription = !description.isEmpty();
+            hasTime = true;
+            if (hasDescription) {
+                t = new Task(description);
+            }
 
         } else if (taskType.equals("deadline")) {
+
             String[] temp = description.split(" /by ");
-            String task = temp[0];
-            String by = temp[1];
-            t = new Deadline(task, by);
+            int len = temp.length;
+            if (len == 2) {
+                String task = temp[0];
+                String by = temp[1];
+                hasDescription = !task.isEmpty();
+                hasTime = !by.isEmpty();
+                if (hasDescription && hasTime) {
+                    t = new Deadline(task, by);
+                }
+            } else {
+                hasDescription = !description.isEmpty();
+                hasTime = false;
+            }
 
         } else {
             String[] temp = description.split(" /from ");
-            String task = temp[0];
-            String[] duration = temp[1].split(" /to ");
-            String from = duration[0];
-            String by = duration[1];
-            t = new Event(task, from, by);
+            int len = temp.length;
+            if (len == 2) {
+                String task = temp[0];
+                hasDescription = !task.isEmpty();
+                String[] duration = temp[1].split(" /to ");
+                int len2 = duration.length;
+                if (len2 == 2) {
+                    String from = duration[0];
+                    String by = duration[1];
+                    hasTime = !by.isEmpty() && !from.isEmpty();
+                    if (hasDescription && hasTime) {
+                        t = new Event(task, from, by);
+                    }
+                } else {
+                    hasTime = false;
+                }
+
+            } else {
+                hasDescription = !description.isEmpty();
+                hasTime = false;
+            }
         }
-        System.out.println(indent + "Ok! I've added this task:\n" + indent + indent + t.toString());
-        Vicky.todo_list[counter] = t;
-        Vicky.counter++;
-        System.out.println(indent + "Now you have " + Vicky.counter + " tasks in your list. :)");
+        if (t != null && hasDescription && hasTime) {
+            System.out.println(indent + "Ok! I've added this task:\n" + indent + indent + t.toString());
+            Vicky.todo_list[counter] = t;
+            Vicky.counter++;
+            System.out.println(indent + "Now you have " + Vicky.counter + " tasks in your list. :)");
+        } else if (hasDescription){
+            System.out.println(indent + "Oi you never gimme the time!");
+        } else {
+            System.out.println(indent + "Oi your task cannot be empty!");
+        }
         print_line();
 
     }
-
 
 }
 
