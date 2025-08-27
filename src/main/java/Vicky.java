@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Vicky {
     public static final String indent = "    ";
-    private static Task[] todo_list = new Task[100];
+    static ArrayList<Task> todo_list = new ArrayList<>();
     private static int counter = 0;
 
     public static void main(String[] args) {
@@ -18,9 +19,9 @@ public class Vicky {
         Scanner scanner = new Scanner(System.in);
 
         // Greeting
-        print_line();
+        printLine();
         System.out.println(indent + "Hello! I'm Vicky\n" + indent + "What can I do for you?");
-        print_line();
+        printLine();
 
         String command = scanner.next();
         while (!(command.equals("bye"))) {
@@ -30,44 +31,47 @@ public class Vicky {
 
                 System.out.println(indent + "Here's your todo list:");
                 for (int i = 1; i <= counter; i++) {
-                    System.out.printf(indent + "%d. %s\n", i, todo_list[i - 1]);
+                    System.out.printf(indent + "%d. %s\n", i, todo_list.get(i - 1));
                 }
-                print_line();
+                printLine();
 
             } else if (command.equals("unmark")) {
                 int index = scanner.nextInt() - 1;
                 if (index < counter) {
-                    todo_list[index].unmark();
+                    todo_list.get(index).unmark();
                     System.out.println(indent + "OK, I've marked this task as not done yet:");
-                    System.out.println(indent + todo_list[index]);
+                    System.out.println(indent + todo_list.get(index));
                 } else {
                     System.out.println(indent + "CHIBAI THE INDEX OUT OF BOUNDS LA");
                 }
-                print_line();
+                printLine();
 
             } else if (command.equals("mark")) {
                 int index = scanner.nextInt() - 1;
                 if (index < counter) {
-                    todo_list[index].mark();
+                    todo_list.get(index).mark();
                     System.out.println(indent + "YAY! I've marked this task as done:");
-                    System.out.println(indent + todo_list[index]);
+                    System.out.println(indent + todo_list.get(index));
                 } else {
                     System.out.println(indent + "CHIBAI THE INDEX OUT OF BOUNDS LA");
                 }
 
-                print_line();
+                printLine();
+            } else if (command.equals("delete")) {
+                int taskNumber = scanner.nextInt();
+                deleteTask(taskNumber);
 
             // Adding a new task
             } else if (!command.isEmpty()) {
                 String description = scanner.nextLine();
 
-                if (command.equals("todo")||command.equals("deadline")||command.equals("event")) {
+                if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
                     Vicky.addTask(command, description);
 
                 } else {
                     //System.out.println(indent + command + description);
                     System.out.println(indent + "Walao eh chibai I don't know what that means :(");
-                    print_line();
+                    printLine();
                 }
 
             }
@@ -76,18 +80,25 @@ public class Vicky {
         }
 
         // Goodbye message
-        System.out.println(indent + "Bye! Hope to see you again soon!");
-        print_line();
+        System.out.println(indent + "Awwww :( Bye bye!!");
+        printLine();
 
         scanner.close();
 
     }
 
-    public static void print_line() {
+    public static void printLine() {
         int length = 40;
         System.out.println(indent + "_".repeat(length));
     }
-
+    /**
+     * Adds the specified task to the list.
+     * If the description is missing information,
+     * an error message will be printed to inform them
+     * if their task description or time is missing
+     * @param taskType Type of task to add
+     * @param description Task description and task timeframe
+     */
     private static void addTask(String taskType, String description) {
         Task t = null;
         boolean hasDescription;
@@ -143,7 +154,7 @@ public class Vicky {
         }
         if (t != null && hasDescription && hasTime) {
             System.out.println(indent + "Ok! I've added this task:\n" + indent + indent + t.toString());
-            Vicky.todo_list[counter] = t;
+            Vicky.todo_list.add(t);
             Vicky.counter++;
             System.out.println(indent + "Now you have " + Vicky.counter + " tasks in your list. :)");
         } else if (hasDescription){
@@ -151,8 +162,26 @@ public class Vicky {
         } else {
             System.out.println(indent + "Oi your task cannot be empty!");
         }
-        print_line();
+        printLine();
 
+    }
+
+    /**
+     * Deletes specified task from todo_list
+     * If the specified index is out of bounds, an error message will be printed
+     * @param i Task number in the todo list
+     */
+    private static void deleteTask(int i) {
+        if (i > counter) {
+            System.out.println(indent + "Nah cuh your list too short. Try again hoe!");
+        } else {
+            Task t = todo_list.remove(i - 1);
+            counter--;
+            System.out.println(indent + "Noted with many thanks! I've removed this task:");
+            System.out.println(indent + indent + t.toString());
+            System.out.println(indent + "You now have " + counter + " tasks left!");
+            printLine();
+        }
     }
 
 }
