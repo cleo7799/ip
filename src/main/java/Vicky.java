@@ -27,40 +27,35 @@ public class Vicky {
         String command = scanner.next();
         while (!(command.equals("bye"))) {
 
-            // print list
-            if (command.equals("list")) {
-
+            switch (command) {
+            case "list":
                 todoList.printList();
-
-            } else if (command.equals("unmark")) {
+                break;
+            case "unmark":
                 int index = scanner.nextInt() - 1;
                 todoList.unmarkTask(index);
-
-            } else if (command.equals("mark")) {
-                int index = scanner.nextInt() - 1;
+                break;
+            case "mark":
+                index = scanner.nextInt() - 1;
                 todoList.markTask(index);
-
-            } else if (command.equals("delete")) {
+                break;
+            case "delete":
                 int taskNumber = scanner.nextInt();
                 todoList.deleteTask(taskNumber);
-
-            // Adding a new task
-            } else if (!command.isEmpty()) {
+                break;
+            case "todo", "deadline", "event":
                 String description = scanner.nextLine();
-
-                if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                    todoList.addTask(command, description);
-                    printLine();
-
-                } else {
-                    //System.out.println(indent + command + description);
-                    System.out.println(indent + "Walao eh chibai I don't know what that means :(");
-                    printLine();
-                }
-
+                todoList.addTask(command, description);
+                printLine();
+                break;
+            default:
+                description = scanner.nextLine();
+                System.out.println(indent + "Walao eh chibai I don't know what that means :(");
+                printLine();
+                break;
             }
-
             command = scanner.next();
+
         }
 
         // Goodbye message
