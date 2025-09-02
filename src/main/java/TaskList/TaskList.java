@@ -97,7 +97,7 @@ public class TaskList {
             hasDescription = !description.isEmpty();
             hasTime = true;
             if (hasDescription) {
-                t = new Task(description);
+                t = new Todo(description);
             }
 
         } else if (taskType.equals("deadline")) {

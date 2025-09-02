@@ -10,6 +10,17 @@ public class Event extends Deadline {
         this.from = from;
     }
 
+    public Event(String name, String from, String by, boolean isDone) {
+        super(name, by, isDone);
+        this.by = by;
+        this.from = from;
+    }
+
+    @Override
+    public String toStorageString() {
+        return String.format("Deadline|" + this.name + "|" + this.isDone + "|" + this.from + "|" + this.by);
+    }
+
     @Override
     public String toString() {
         char p = this.isDone ? 'X' : ' ';
