@@ -1,8 +1,11 @@
 package storage;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.ArrayList;
 import TaskList.Task;
@@ -45,11 +48,13 @@ public class Storage {
         if (Files.notExists(this.filePath)) {
             return new ArrayList<>();
         } else {
-            List<String> lines = Files.readAllLines(this.filePath);
+            List<String> lines = Files.readAllLines(this.filePath, StandardCharsets.UTF_8);
             ArrayList<Task> tasks = new ArrayList<>();
             for (String line: lines) {
                 if (line.isBlank()) {
                     continue;
+                } else {
+                    tasks.add(Task.fromStorageString(line));
                 }
             }
             return tasks;
@@ -57,5 +62,18 @@ public class Storage {
 
     }
 
+    /**
+     * Save all tasks to disk.
+     */
+    public void saveAllTasks(ArrayList<Task> tasks) throws IOException {
+        List<String> lines = new ArrayList<>(tasks.size());
+        for (Task t: tasks) {
+            lines.add(t.toStorageString());
+        }
+        // Write to a temporary file
+        Path temp = Files.createTempFile(this.filePath.getParent(), "vicky_", ".tmp");
+        Files.write(temp, lines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.move(temp, this.filePath, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+    }
 
 }
