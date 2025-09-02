@@ -1,3 +1,5 @@
+package TaskList;
+
 public class Event extends Deadline {
     protected String from;
     protected String by;
@@ -10,7 +12,7 @@ public class Event extends Deadline {
 
     @Override
     public String toString() {
-        char p = this.done ? 'X' : ' ';
+        char p = this.isDone ? 'X' : ' ';
         return String.format("[E] [%c] %s (from: %s to: %s)", p, this.name, this.from, this.by);
     }
 

@@ -1,23 +1,25 @@
+package TaskList;
+
 public class Task {
     protected String name;
-    protected boolean done;
+    protected boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        char p = this.done ? 'X' : ' ';
+        char p = this.isDone ? 'X' : ' ';
         return String.format("[T] [%c] %s", p, this.name);
     }
 
