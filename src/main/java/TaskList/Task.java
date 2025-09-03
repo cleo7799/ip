@@ -24,27 +24,46 @@ public abstract class Task {
 
 
     public static Task fromStorageString(String s) throws IllegalArgumentException{
-        String[] temp = s.split("|");
+        String[] temp = s.split("\\s\\|\\s");
         String taskType = temp[0];
+
         if (temp.length < 3) {
+            System.out.println("length less than 3");
             throw new IllegalArgumentException("Missing data: Only " + temp.length + " fields received.");
         }
+
+        String taskStatus = temp[1];
+        String taskDescriptor = temp[2];
         boolean isDone;
-        if (temp[2].equals("true")) {
+
+        if (taskStatus.isEmpty()) {
+            throw new IllegalArgumentException("Missing task status.");
+        } else if (taskStatus.equals("0")) {
             isDone = true;
-        } else if (temp[2].equals("false")) {
+        } else if (taskStatus.equals("1")) {
             isDone = false;
         } else {
-            throw new IllegalArgumentException("isDone variable of task is wrong.");
+            System.out.println(temp[0] + temp[1] + temp[2]);
+            throw new IllegalArgumentException("Corrupted task status value: " + taskStatus); //+ taskStatus
+        }
+
+        if (taskDescriptor.isEmpty()) {
+            throw new IllegalArgumentException("Empty task descriptor");
         }
 
         switch (taskType) {
         case "Todo":
-            return new Todo(temp[1], isDone);
+            return new Todo(taskDescriptor, isDone);
         case "Deadline":
-            return new Deadline(temp[1], temp[2], isDone); //Fallthrough
+            if (temp.length != 4 || temp[3].isEmpty()) {
+                throw new IllegalArgumentException("Deadline task has missing values.");
+            }
+            return new Deadline(taskDescriptor, temp[3], isDone); //Fallthrough
         case "Event":
-            return new Event(temp[1], temp[2], temp[3], isDone); //Fallthrough
+            if (temp.length != 5 || temp[3].isEmpty() || temp[4].isEmpty()) {
+                throw new IllegalArgumentException("Event task has missing values.");
+            }
+            return new Event(taskDescriptor, temp[3], temp[4], isDone); //Fallthrough
         default:
             throw new IllegalArgumentException("Unknown task type: " + taskType); //Fallthrough
         }

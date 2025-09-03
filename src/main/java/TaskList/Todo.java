@@ -12,7 +12,8 @@ public class Todo extends Task {
 
     @Override
     public String toStorageString() {
-        return String.format("Todo|" + this.name + "|" + this.isDone);
+        int done = this.isDone ? 0 : 1;
+        return String.format("Todo | %d | %s", done, this.name);
     }
 
     @Override

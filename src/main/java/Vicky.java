@@ -13,9 +13,7 @@ public class Vicky {
 
     public static void main(String[] args) {
 
-        String home = System.getProperty("user.home");
-        Path path = Paths.get(home, "data", "Vicky.txt");
-        Storage storage = new Storage(path);
+        Storage storage = new Storage();
         Scanner scanner = null;
 
         try {

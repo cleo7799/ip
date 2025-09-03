@@ -13,13 +13,14 @@ import java.nio.file.Files;
 public class TaskList {
     public static final String indent = "    ";
     private final Storage storage;
-    static ArrayList<Task> tasks;
+    final ArrayList<Task> tasks;
 
-    private static int counter = 0;
+    private static int counter;
 
     public TaskList(ArrayList<Task> tasks, Storage storage) {
         this.tasks = tasks;
         this.storage = storage;
+        counter = tasks.size();
     }
 
     public int numberOfTasks() {

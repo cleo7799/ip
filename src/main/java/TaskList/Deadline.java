@@ -15,7 +15,8 @@ public class Deadline extends Todo {
 
     @Override
     public String toStorageString() {
-        return String.format("Deadline|" + this.name + "|" + this.isDone + "|" + this.by);
+        int done = this.isDone ? 0 : 1;
+        return String.format("Deadline | %d | %s | %s", done, this.name, this.by);
     }
 
     @Override

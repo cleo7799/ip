@@ -18,7 +18,8 @@ public class Event extends Deadline {
 
     @Override
     public String toStorageString() {
-        return String.format("Deadline|" + this.name + "|" + this.isDone + "|" + this.from + "|" + this.by);
+        int done = this.isDone ? 0 : 1;
+        return String.format("Event | %d | %s | %s | %s", done, this.name, this.from, this.by);
     }
 
     @Override

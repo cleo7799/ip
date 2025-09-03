@@ -2,10 +2,7 @@ package storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
 import TaskList.Task;
@@ -18,6 +15,10 @@ import TaskList.Task;
  */
 public class Storage {
     private final Path filePath;
+
+    public Storage() {
+        this(Paths.get("data", "Vicky.txt"));
+    }
 
     public Storage(Path filePath) {
         this.filePath = filePath;
@@ -45,17 +46,23 @@ public class Storage {
      * @throws IOException
      */
     public ArrayList<Task> load() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+
         if (Files.notExists(this.filePath)) {
-            return new ArrayList<>();
+            return tasks;
         } else {
-            List<String> lines = Files.readAllLines(this.filePath, StandardCharsets.UTF_8);
-            ArrayList<Task> tasks = new ArrayList<>();
-            for (String line: lines) {
-                if (line.isBlank()) {
-                    continue;
-                } else {
-                    tasks.add(Task.fromStorageString(line));
+            try {
+                List<String> lines = Files.readAllLines(this.filePath, StandardCharsets.UTF_8);
+                for (String line: lines) {
+                    if (line.isEmpty()) {
+                        continue;
+                    } else {
+                        Task t = Task.fromStorageString(line);
+                        tasks.add(t);
+                    }
                 }
+            } catch (IllegalArgumentException e) {
+                System.err.println("Couldn't fetch tasks: " + e.getMessage());
             }
             return tasks;
         }
@@ -70,10 +77,7 @@ public class Storage {
         for (Task t: tasks) {
             lines.add(t.toStorageString());
         }
-        // Write to a temporary file
-        Path temp = Files.createTempFile(this.filePath.getParent(), "vicky_", ".tmp");
-        Files.write(temp, lines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
-        Files.move(temp, this.filePath, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        Files.write(this.filePath, lines, StandardCharsets.UTF_8);
     }
 
 }
