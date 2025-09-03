@@ -1,6 +1,8 @@
 package TaskList;
 
 import java.util.ArrayList;
+import java.io.IOException;
+import storage.Storage;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
@@ -10,12 +12,14 @@ import java.nio.file.Files;
 
 public class TaskList {
     public static final String indent = "    ";
-    static ArrayList<Task> tasks = new ArrayList<>();
+    private final Storage storage;
+    static ArrayList<Task> tasks;
 
     private static int counter = 0;
 
-    public TaskList() {
-
+    public TaskList(ArrayList<Task> tasks, Storage storage) {
+        this.tasks = tasks;
+        this.storage = storage;
     }
 
     public int numberOfTasks() {
@@ -45,6 +49,7 @@ public class TaskList {
             System.out.println(indent + "CHIBAI THE INDEX OUT OF BOUNDS LA");
         }
         printLine();
+        this.autoSave();
     }
 
     /**
@@ -60,6 +65,7 @@ public class TaskList {
         }
 
         printLine();
+        this.autoSave();
     }
 
     /**
@@ -78,6 +84,7 @@ public class TaskList {
             System.out.println(indent + "You now have " + counter + " tasks left!");
             printLine();
         }
+        this.autoSave();
     }
 
     /**
@@ -151,8 +158,16 @@ public class TaskList {
         } else {
             System.out.println(indent + "Oi your task cannot be empty!");
         }
+        this.autoSave();
         //Vicky.printLine();
+    }
 
+    private void autoSave() {
+        try {
+            this.storage.saveAllTasks(tasks);
+        } catch (IOException e) {
+            System.err.println("Failed to save edit: " + e.getMessage());
+        }
     }
 
     /**
