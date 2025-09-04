@@ -1,8 +1,14 @@
 package TaskList;
 
+import java.time.LocalDateTime;
+import java.time.DateTimeException;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String name;
     protected boolean isDone;
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
 
     public Task(String name) {
         this.name = name;
@@ -43,7 +49,7 @@ public abstract class Task {
         } else if (taskStatus.equals("1")) {
             isDone = false;
         } else {
-            System.out.println(temp[0] + temp[1] + temp[2]);
+            //System.out.println(temp[0] + temp[1] + temp[2]);
             throw new IllegalArgumentException("Corrupted task status value: " + taskStatus); //+ taskStatus
         }
 
@@ -58,17 +64,24 @@ public abstract class Task {
             if (temp.length != 4 || temp[3].isEmpty()) {
                 throw new IllegalArgumentException("Deadline task has missing values.");
             }
-            return new Deadline(taskDescriptor, temp[3], isDone); //Fallthrough
+            LocalDateTime deadline = parseOutputString(temp[3]);
+            return new Deadline(taskDescriptor, deadline, isDone); //Fallthrough
         case "Event":
             if (temp.length != 5 || temp[3].isEmpty() || temp[4].isEmpty()) {
                 throw new IllegalArgumentException("Event task has missing values.");
             }
-            return new Event(taskDescriptor, temp[3], temp[4], isDone); //Fallthrough
+            LocalDateTime start = parseOutputString(temp[3]);
+            LocalDateTime end = parseOutputString(temp[4]);
+            return new Event(taskDescriptor, start, end, isDone); //Fallthrough
         default:
             throw new IllegalArgumentException("Unknown task type: " + taskType); //Fallthrough
         }
     }
 
+    public static LocalDateTime parseOutputString(String s) throws DateTimeException {
+        return LocalDateTime.parse(s, OUTPUT_FORMAT);
+
+    }
     public abstract String toStorageString();
 
     @Override

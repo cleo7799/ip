@@ -3,19 +3,17 @@ package TaskList;
 import java.util.ArrayList;
 import java.io.IOException;
 import storage.Storage;
-import java.util.List;
-import java.util.Scanner;
-import java.io.File;
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.DateTimeException;
 
 public class TaskList {
     public static final String indent = "    ";
     private final Storage storage;
     final ArrayList<Task> tasks;
-
     private static int counter;
+    public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     public TaskList(ArrayList<Task> tasks, Storage storage) {
         this.tasks = tasks;
@@ -88,6 +86,88 @@ public class TaskList {
         this.autoSave();
     }
 
+    private void autoSave() {
+        try {
+            this.storage.saveAllTasks(tasks);
+        } catch (IOException e) {
+            System.err.println("Failed to save edit: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Prints a line.
+     */
+    public static void printLine() {
+        int length = 40;
+        System.out.println(indent + "_".repeat(length));
+    }
+
+    public static LocalDateTime parseInputString(String s) throws DateTimeException {
+        return LocalDateTime.parse(s, INPUT_FORMAT);
+    }
+
+    private static Todo addTodo(String description) throws InvalidTaskDescriptionException {
+        if (description.isEmpty()) {
+            throw new InvalidTaskDescriptionException("Missing todo description.");
+        }
+        return new Todo(description);
+    }
+    private static Deadline addDeadline(String description) throws InvalidTaskDescriptionException,
+            InvalidTaskTimeException {
+        String[] temp = description.split(" /by ");
+        int len = temp.length;
+        if (len == 2) {
+            String task = temp[0];
+            String by = temp[1];
+            if (task.isEmpty()) {
+                throw new InvalidTaskDescriptionException("Missing deadline description.");
+            }
+            if (by.isEmpty()) {
+                throw new InvalidTaskTimeException("Missing deadline time.");
+            }
+
+            LocalDateTime deadline = parseInputString(by);
+
+            return new Deadline(task, deadline);
+
+        } else {
+            throw new InvalidTaskException("Invalid deadline task.");
+        }
+    }
+
+    private static Event addEvent(String description) throws InvalidTaskDescriptionException,
+            InvalidTaskTimeException {
+        System.out.println("addEvent is called");
+        String[] temp = description.split(" /from ");
+        int len = temp.length;
+        if (len == 2) {
+            String task = temp[0];
+            if (task.isEmpty()) {
+                throw new InvalidTaskDescriptionException("Missing event description.");
+            }
+            String[] duration = temp[1].split(" /to ");
+            int len2 = duration.length;
+            if (len2 == 2) {
+                String from = duration[0];
+                String by = duration[1];
+                if (from.isEmpty()) {
+                    throw new InvalidTaskTimeException("Missing event start time.");
+                } else if (by.isEmpty()) {
+                    throw new InvalidTaskTimeException("Missing event end time.");
+                }
+                LocalDateTime start = parseInputString(from);
+                LocalDateTime end = parseInputString(by);
+                return new Event(task, start, end);
+
+            } else {
+                throw new InvalidTaskTimeException("Invalid event time.");
+            }
+
+        } else {
+            throw new InvalidTaskException("Invalid event task.");
+        }
+    }
+
     /**
      * Adds the specified task to the list.
      * If the description is missing information,
@@ -97,6 +177,55 @@ public class TaskList {
      * @param description Task description and task timeframe
      */
     public void addTask(String taskType, String description) {
+        Task t = null;
+        try {
+            switch (taskType) {
+            case "todo":
+                t = addTodo(description);
+                break;
+            case "deadline":
+                t = addDeadline(description);
+                break;
+            case "event":
+                System.out.println("case: event");
+                t = addEvent(description);
+                break;
+            default:
+                System.err.println(indent + "Invalid task type.");
+                break;
+            }
+
+            if (t != null) {
+                System.out.println(indent + "Ok! I've added this task:\n" + indent + indent + t.toString());
+                tasks.add(t);
+                counter++;
+                System.out.println(indent + "Now you have " + counter + " tasks in your list. :)");
+            }
+            this.autoSave();
+        } catch (InvalidTaskException e) {
+            System.err.println("Failed to add task: " + e.getMessage());
+        } catch (InvalidTaskDescriptionException e) {
+            System.err.println("Failed to add task: " + e.getMessage());
+            //System.out.println(indent + "Oi your task cannot be empty!");
+        } catch (InvalidTaskTimeException e) {
+            System.err.println("Failed to add task: " + e.getMessage());
+            // System.out.println(indent + "Oi you never gimme the time!");
+        } catch (DateTimeException e) {
+            System.err.println("Failed to add task: " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Adds the specified task to the list.
+     * If the description is missing information,
+     * an error message will be printed to inform them
+     * if their task description or time is missing
+     * @param taskType Type of task to add
+     * @param description Task description and task timeframe
+     */
+    /*
+    public void addTask1(String taskType, String description) {
         Task t = null;
         boolean hasDescription;
         boolean hasTime;
@@ -126,6 +255,7 @@ public class TaskList {
             }
 
         } else {
+
             String[] temp = description.split(" /from ");
             int len = temp.length;
             if (len == 2) {
@@ -161,22 +291,5 @@ public class TaskList {
         }
         this.autoSave();
         //Vicky.printLine();
-    }
-
-    private void autoSave() {
-        try {
-            this.storage.saveAllTasks(tasks);
-        } catch (IOException e) {
-            System.err.println("Failed to save edit: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Prints a line.
-     */
-    public static void printLine() {
-        int length = 40;
-        System.out.println(indent + "_".repeat(length));
-    }
-
+    }*/
 }
