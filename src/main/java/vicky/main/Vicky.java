@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import vicky.command.Command;
-import vicky.exception.InvalidTaskException;
 import vicky.exception.InvalidInputException;
+import vicky.exception.InvalidTaskException;
 import vicky.parser.Parser;
 import vicky.storage.Storage;
 import vicky.tasklist.TaskList;

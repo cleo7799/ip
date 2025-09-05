@@ -13,8 +13,8 @@ import vicky.storage.Storage;
 public class TaskList {
     public static final String INDENT = "    ";
     private static int counter;
-    private final Storage storage;
     final ArrayList<Task> tasks;
+    private final Storage storage;
 
     /**
      * Constructor for TaskList class, initializes the TaskList task with an arraylist of tasks and storage.

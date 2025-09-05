@@ -111,5 +111,4 @@ public class Event extends Deadline {
         String end = this.isSameDate() ? this.getEndTime() : this.getEndDateTime();
         return String.format("[E] [%c] %s (from %s to %s)", p, this.name, this.getStartDateTime(), end);
     }
-
 }

@@ -3,8 +3,8 @@ package vicky.command;
 import java.io.IOException;
 
 import vicky.storage.Storage;
-import vicky.tasklist.Todo;
 import vicky.tasklist.TaskList;
+import vicky.tasklist.Todo;
 import vicky.ui.Ui;
 
 /**

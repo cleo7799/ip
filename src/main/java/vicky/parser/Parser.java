@@ -1,22 +1,21 @@
 package vicky.parser;
 
-import vicky.command.AddTodoCommand;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import vicky.command.AddDeadlineCommand;
 import vicky.command.AddEventCommand;
+import vicky.command.AddTodoCommand;
 import vicky.command.Command;
 import vicky.command.DeleteTaskCommand;
 import vicky.command.GoodbyeCommand;
 import vicky.command.ListCommand;
 import vicky.command.MarkTaskCommand;
 import vicky.command.UnmarkTaskCommand;
-
 import vicky.exception.InvalidInputException;
 import vicky.exception.InvalidTaskException;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Class responsible for parsing user input and managing commands.
@@ -64,7 +63,7 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws InvalidTaskException, InvalidInputException,
             DateTimeException, DateTimeParseException {
-        String words[] = fullCommand.split(" ", 2);
+        String[] words = fullCommand.split(" ", 2);
         String command = words[0];
         String arguments = words.length > 1 ? words[1] : "";
 
