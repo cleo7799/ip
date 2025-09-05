@@ -49,6 +49,15 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Checks if the task description contains the input keyword.
+     *
+     * @param str The keyword.
+     * @return true if the task description contains the input keyword.
+     */
+    public boolean contains(String str) {
+        return this.name.toLowerCase().contains(str);
+    }
 
     /**
      * Parses the storage string into a corresponding task object.

@@ -14,25 +14,22 @@ public class TaskList {
     public static final String INDENT = "    ";
     private static int counter;
     final ArrayList<Task> tasks;
-    private final Storage storage;
 
     /**
-     * Constructor for TaskList class, initializes the TaskList task with an arraylist of tasks and storage.
+     * Constructor for TaskList class, initializes the TaskList task with an arraylist of tasks..
+     *
      * @param tasks The arraylist of tasks.
-     * @param storage The storage object.
      */
-    public TaskList(ArrayList<Task> tasks, Storage storage) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.storage = storage;
         counter = tasks.size();
     }
 
     /**
-     * Overloaded constructor for TaskList class, initializes the TaskList task with an empty task list and storage.
+     * Overloaded constructor for TaskList class, initializes the TaskList task with an empty task list.
      */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
-        this.storage = new Storage();
         counter = 0;
     }
 
@@ -135,5 +132,21 @@ public class TaskList {
             counter--;
             return t;
         }
+    }
+
+    /**
+     * Returns a task list containing tasks in this task list that whose descriptions contain the keyword str.
+     *
+     * @param str The keyword.
+     * @return A task list containing matching tasks.
+     */
+    public TaskList matchingTasks(String str) {
+        TaskList matching = new TaskList();
+        for (Task t: this.tasks) {
+            if (t.contains(str)) {
+                matching.addTask(t);
+            }
+        }
+        return matching;
     }
 }
