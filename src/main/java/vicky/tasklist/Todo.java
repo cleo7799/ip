@@ -1,4 +1,4 @@
-package vicky.taskList;
+package vicky.tasklist;
 
 /**
  * Represents a Todo task, extending the Task class.

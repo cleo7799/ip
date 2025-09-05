@@ -1,13 +1,23 @@
 package vicky.command;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import vicky.taskList.*;
+
+import vicky.tasklist.Event;
+import vicky.tasklist.TaskList;
+
 import vicky.storage.Storage;
+
 import vicky.ui.Ui;
-import java.time.LocalDateTime;
+
 import java.io.IOException;
+
+import java.time.LocalDateTime;
+
 
 public class AddEventCommandTest {
 
@@ -35,10 +45,10 @@ public class AddEventCommandTest {
         assertEquals(1, taskList.len());
         Event event = (Event) taskList.getTask(0);
 
-        assertEquals("    Ok! I've added this task:\n        " +
-                "[E] [ ] Team Meeting (from 05-09-2025 10:00 to 12:00)\n    " +
-                "Now you have 1 tasks in your list. :)" +
-                "\n    __________________________________________________________________________\n", result);
+        assertEquals("    Ok! I've added this task:\n        "
+                + "[E] [ ] Team Meeting (from 05-09-2025 10:00 to 12:00)\n    "
+                + "Now you have 1 tasks in your list. :)"
+                + "\n    __________________________________________________________________________\n", result);
     }
 
     @Test

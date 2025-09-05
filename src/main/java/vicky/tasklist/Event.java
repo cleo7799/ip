@@ -1,4 +1,4 @@
-package vicky.taskList;
+package vicky.tasklist;
 
 import java.time.LocalDateTime;
 
@@ -60,7 +60,7 @@ public class Event extends Deadline {
      * @return string representing the start date and time.
      */
     public String getStartDateTime() {
-        return this.from.format(outputFormat);
+        return this.from.format(OUTPUT_FORMAT);
     }
 
     /**
@@ -69,7 +69,7 @@ public class Event extends Deadline {
      * @return string representing the end date and time.
      */
     public String getEndDateTime() {
-        return this.by.format(outputFormat);
+        return this.by.format(OUTPUT_FORMAT);
     }
 
     /**
@@ -83,7 +83,7 @@ public class Event extends Deadline {
      * Returns the end time in the specified time format.
      */
     public String getEndTime() {
-        return this.by.toLocalTime().format(timeFormat);
+        return this.by.toLocalTime().format(TIME_FORMAT);
     }
 
     /**
@@ -95,7 +95,8 @@ public class Event extends Deadline {
     @Override
     public String toStorageString() {
         int done = this.isDone ? 0 : 1;
-        return String.format("Event | %d | %s | %s | %s", done, this.name, this.getStartDateTime(), this.getEndDateTime());
+        return String.format("Event | %d | %s | %s | %s", done, this.name, this.getStartDateTime(),
+                this.getEndDateTime());
     }
 
     /**
@@ -110,5 +111,4 @@ public class Event extends Deadline {
         String end = this.isSameDate() ? this.getEndTime() : this.getEndDateTime();
         return String.format("[E] [%c] %s (from %s to %s)", p, this.name, this.getStartDateTime(), end);
     }
-
 }

@@ -1,7 +1,7 @@
-package vicky.taskList;
+package vicky.tasklist;
 
-import java.time.LocalDateTime;
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -10,9 +10,9 @@ import java.time.format.DateTimeFormatter;
  * @author Rachel
  */
 public abstract class Task {
+    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     protected String name;
     protected boolean isDone;
-    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
      * Constructor for Task class, initializes the Task with a name.
@@ -57,7 +57,7 @@ public abstract class Task {
      * @return The corresponding task based on the storage string.
      * @throws IllegalArgumentException if the storage string format is invalid.
      */
-    public static Task fromStorageString(String s) throws IllegalArgumentException{
+    public static Task fromStorageString(String s) throws IllegalArgumentException {
         String[] temp = s.split("\\s\\|\\s");
         String taskType = temp[0];
 

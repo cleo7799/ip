@@ -3,20 +3,25 @@ package vicky.main;
 import java.io.IOException;
 import java.util.Scanner;
 
-import vicky.parser.Parser;
-import vicky.taskList.TaskList;
-import vicky.exception.InvalidTaskException;
-import vicky.exception.InvalidInputException;
 import vicky.command.Command;
+import vicky.exception.InvalidInputException;
+import vicky.exception.InvalidTaskException;
+import vicky.parser.Parser;
 import vicky.storage.Storage;
+import vicky.tasklist.TaskList;
 import vicky.ui.Ui;
 
+/**
+ * Vicky represents the Vicky chatbot
+ */
 public class Vicky {
-    public static final String indent = "    ";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initialises ui and storage variables when chatbot starts.
+     */
     public Vicky() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -30,6 +35,9 @@ public class Vicky {
         }
     }
 
+    /**
+     * Runs the main execution flow of the Vicky chatbot.
+     */
     public void run() {
         System.out.print(ui.showGreeting());
         Scanner scanner = new Scanner(System.in);
