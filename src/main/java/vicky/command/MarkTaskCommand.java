@@ -1,12 +1,15 @@
 package vicky.command;
 
-import vicky.tasklist.TaskList;
-import vicky.tasklist.Task;
-import vicky.storage.Storage;
-import vicky.ui.Ui;
-
 import java.io.IOException;
 
+import vicky.storage.Storage;
+import vicky.tasklist.Task;
+import vicky.tasklist.TaskList;
+import vicky.ui.Ui;
+
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkTaskCommand extends Command {
 
     private int index;

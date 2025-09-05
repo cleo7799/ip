@@ -1,21 +1,27 @@
 package vicky.command;
 
 import java.io.IOException;
-
 import java.time.LocalDateTime;
 
 import vicky.storage.Storage;
-
 import vicky.tasklist.Deadline;
 import vicky.tasklist.TaskList;
-
 import vicky.ui.Ui;
 
+/**
+ * Represents a command to add a new deadline task.
+ */
 public class AddDeadlineCommand extends Command {
 
     private String description;
     private LocalDateTime dateTime;
 
+    /**
+     * Constructor for AddDeadlineCommand class, initialises the command with a description, date and time.
+     *
+     * @param description The name of the deadline task to be created.
+     * @param dateTime The end time of the deadline task to be created.
+     */
     public AddDeadlineCommand(String description, LocalDateTime dateTime) {
         this.description = description;
         this.dateTime = dateTime;

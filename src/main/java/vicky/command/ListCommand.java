@@ -1,9 +1,12 @@
 package vicky.command;
 
-import vicky.tasklist.TaskList;
 import vicky.storage.Storage;
+import vicky.tasklist.TaskList;
 import vicky.ui.Ui;
 
+/**
+ * Represents a command to list the task list.
+ */
 public class ListCommand extends Command {
 
     @Override
