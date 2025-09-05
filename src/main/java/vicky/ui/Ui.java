@@ -123,4 +123,19 @@ public class Ui {
         return INDENT + "Nah cuh your list too short. Try again hoe!" + printLine();
     }
 
+    /**
+     * Returns message showing user the matching tasks that have been found.
+     *
+     * @param matchingTasks The task list containing the tasks that match the keyword.
+     * @return message.
+     */
+    public String showFindTasks(TaskList matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            return printLine() + INDENT + "Awww :( There are no matching tasks..." + printLine();
+        } else {
+            return printLine() + INDENT + "Found it! Here are the matching tasks in your list:\n"
+                    + matchingTasks.toString() + printLine();
+        }
+    }
+
 }

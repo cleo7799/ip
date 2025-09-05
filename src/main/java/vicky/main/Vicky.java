@@ -28,7 +28,7 @@ public class Vicky {
 
         try {
             this.storage.init();
-            this.tasks = new TaskList(this.storage.load(), this.storage);
+            this.tasks = new TaskList(this.storage.load());
         } catch (IOException e) {
             System.err.println(ui.showLoadingError(e.getMessage()));
             this.tasks = new TaskList();

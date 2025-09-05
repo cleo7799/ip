@@ -5,15 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import vicky.command.AddDeadlineCommand;
-import vicky.command.AddEventCommand;
-import vicky.command.AddTodoCommand;
-import vicky.command.Command;
-import vicky.command.DeleteTaskCommand;
-import vicky.command.GoodbyeCommand;
-import vicky.command.ListCommand;
-import vicky.command.MarkTaskCommand;
-import vicky.command.UnmarkTaskCommand;
+import vicky.command.*;
 import vicky.exception.InvalidInputException;
 import vicky.exception.InvalidTaskException;
 
@@ -106,8 +98,15 @@ public class Parser {
             case "todo", "deadline", "event":
                 return parseTask(command, arguments);
                 //Fallthrough
+            case "find":
+                if (arguments.isEmpty()) {
+                    throw new InvalidTaskException("Find requires a keyword!");
+                }
+                return new FindTasksCommand(arguments);
+
             case "bye":
                 return new GoodbyeCommand();
+                //Fallthrough
             default:
                 throw new InvalidInputException("Bitch I don't know what that means. :(");
         }
