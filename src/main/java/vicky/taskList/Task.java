@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Abstract class representing a task with a name and completion status.
+ *
+ * @author Rachel
+ */
 public abstract class Task {
     protected String name;
     protected boolean isDone;

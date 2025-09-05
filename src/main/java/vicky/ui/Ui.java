@@ -3,8 +3,15 @@ package vicky.ui;
 import vicky.taskList.Task;
 import vicky.taskList.TaskList;
 
+/**
+ * Represents the main user interface window of the application,
+ * providing a graphical interface for user interaction and displaying messages.
+ *
+ * @author Rachel Wong
+ */
 public class Ui {
 
+    /** Indentation used for printing formatted messages */
     public static final String INDENT = "    ";
 
     /**
@@ -30,18 +37,29 @@ public class Ui {
 
     /**
      * Returns an error message.
-     * @param message
+     *
+     * @param message is the error message to be shown to user.
      */
     public String showError(String message) {
         return INDENT + "\uD83D\uDCA9 OH SHIT!!! " + message + printLine();
     }
 
+    /**
+     * Returns a loading error message to be shown to user.
+     *
+     * @param message is the error message.
+     * @return loading error message.
+     */
     public String showLoadingError(String message) {
         return INDENT + "Failed to load tasks: " + message + "\n" + INDENT + "Starting with empty list." + printLine();
     }
 
     /**
-     * Prints task added.
+     * Returns a string message displaying the task added.
+     *
+     * @param t task that was added.
+     * @param counter number of tasks in the task list.
+     * @return message.
      */
     public String showAddedTask(Task t, int counter) {
         return INDENT + "Ok! I've added this task:\n" + INDENT + INDENT + t.toString() + "\n" +
@@ -49,7 +67,10 @@ public class Ui {
     }
 
     /**
-     * Prints list.
+     * Returns a message displaying the task list.
+     *
+     * @param tasks task list to be displayed.
+     * @return message.
      */
     public String showList(TaskList tasks) {
         if (tasks.isEmpty()) {
@@ -60,24 +81,31 @@ public class Ui {
     }
 
     /**
-     * Prints marked task.
+     * Returns a message displaying the marked task.
+     *
+     * @param task task to be marked.
+     * @return message.
      */
     public String showMarkedTask(Task task) {
         return INDENT + "YAY! I've marked this task as done:\n" + INDENT + task + printLine();
     }
 
     /**
-     * Prints unmarked task.
+     * Returns a message displaying the unmarked task.
+     *
+     * @param task task to be unmarked.
+     * @return message.
      */
     public String showUnmarkedTask(Task task) {
         return INDENT + "OK, I've marked this task as not done yet:\n" + INDENT + task + printLine();
     }
 
     /**
-     * Prints deleted task.
-     * @param task
-     * @param counter
-     * @return
+     * Returns a message displaying the deleted task.
+     *
+     * @param task task to be deleted.
+     * @param counter number of tasks currently in the task list.
+     * @return message.
      */
     public String showDeleteTask(Task task, int counter) {
         return INDENT + "Noted with many thanks! I've removed this task:\n" +
@@ -87,8 +115,9 @@ public class Ui {
     }
 
     /**
-     * Prints index out of bounds message.
-     * @return
+     * Returns message telling user that the index is out of bounds.
+     *
+     * @return message.
      */
     public String showIndexOutOfBounds() {
         return INDENT + "Nah cuh your list too short. Try again hoe!" + printLine();

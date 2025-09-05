@@ -18,7 +18,7 @@ public class MarkTaskCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         try {
-            Task t = tasks.markTask1(this.index);
+            Task t = tasks.markTask(this.index);
             storage.save(tasks);
             return ui.showMarkedTask(t);
         } catch (IndexOutOfBoundsException e) {

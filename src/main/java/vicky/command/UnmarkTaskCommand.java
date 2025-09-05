@@ -18,7 +18,7 @@ public class UnmarkTaskCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         try {
-            Task t = tasks.unmarkTask1(this.index);
+            Task t = tasks.unmarkTask(this.index);
             storage.save(tasks);
             return ui.showUnmarkedTask(t);
         } catch (IndexOutOfBoundsException e) {
