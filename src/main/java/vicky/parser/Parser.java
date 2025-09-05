@@ -18,21 +18,49 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Parser class interprets user input
+ * Class responsible for parsing user input and managing commands.
+ *
+ * @author Rachel Wong
  */
 public class Parser {
 
+    /** Input date-time format for parsing user input. */
     public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
+    /** Output date-time format for displaying parsed data. */
     public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+    /**
+     * Parses a string into a LocalDateTime object based on the input format.
+     *
+     * @param s The input string to be parsed.
+     * @return The parsed LocalDateTime object.
+     * @throws DateTimeException if the input string is in an invalid format.
+     */
     public static LocalDateTime parseInputString(String s) throws DateTimeException {
         return LocalDateTime.parse(s, INPUT_FORMAT);
     }
 
+    /**
+     * Parses a string into a LocalDateTime object based on the output format.
+     *
+     * @param s The input string to be parsed.
+     * @return The parsed LocalDateTime object.
+     * @throws DateTimeException if the input string is in an invalid format.
+     */
     public static LocalDateTime parseOutputString(String s) throws DateTimeException {
         return LocalDateTime.parse(s, OUTPUT_FORMAT);
     }
 
+    /**
+     * Parses a full command string into a corresponding Command object.
+     *
+     * @param fullCommand The full user command string.
+     * @return The corresponding Command object based on the parsed command.
+     * @throws InvalidTaskException if the task in the command is invalid.
+     * @throws InvalidInputException if the input arguments are invalid.
+     * @throws DateTimeException if date-time parsing fails.
+     * @throws DateTimeParseException if the date-time format is incorrect.
+     */
     public static Command parse(String fullCommand) throws InvalidTaskException, InvalidInputException,
             DateTimeException, DateTimeParseException {
         String words[] = fullCommand.split(" ", 2);
@@ -86,6 +114,17 @@ public class Parser {
 
     }
 
+    /**
+     * Parses an arguments string into a corresponding task Command object.
+     *
+     * @param command The command string specifying the task type.
+     * @param arguments The arguments string of the task.
+     * @return The corresponding Command object based on the parsed command.
+     * @throws InvalidTaskException if the task in the command is invalid.
+     * @throws InvalidInputException if the input arguments are invalid.
+     * @throws DateTimeException if date-time parsing fails.
+     * @throws DateTimeParseException if the date-time format is incorrect.
+     */
     public static Command parseTask(String command, String arguments) throws InvalidTaskException, DateTimeException,
             DateTimeParseException {
         switch (command.toLowerCase()) {
