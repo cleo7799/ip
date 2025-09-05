@@ -62,8 +62,8 @@ public class Ui {
      * @return message.
      */
     public String showAddedTask(Task t, int counter) {
-        return INDENT + "Ok! I've added this task:\n" + INDENT + INDENT + t.toString() + "\n" +
-                INDENT + "Now you have " + counter + " tasks in your list. :)" + printLine();
+        return INDENT + "Ok! I've added this task:\n" + INDENT + INDENT + t.toString() + "\n"
+                + INDENT + "Now you have " + counter + " tasks in your list. :)" + printLine();
     }
 
     /**
@@ -108,10 +108,10 @@ public class Ui {
      * @return message.
      */
     public String showDeleteTask(Task task, int counter) {
-        return INDENT + "Noted with many thanks! I've removed this task:\n" +
-                INDENT + INDENT + task.toString() + "\n" +
-                INDENT + "You now have " + counter + " tasks left!" +
-                printLine();
+        return INDENT + "Noted with many thanks! I've removed this task:\n"
+                + INDENT + INDENT + task.toString() + "\n"
+                + INDENT + "You now have " + counter + " tasks left!"
+                + printLine();
     }
 
     /**

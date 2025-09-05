@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task, extending the Todo class, with a specific date and time when the task is due.
  */
 public class Deadline extends Todo {
+    protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    protected static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
     protected LocalDateTime by;
-    protected static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    protected static final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");
 
     /**
      * Constructor for Deadline class, initializes the deadline task with a name and due time.
@@ -40,7 +40,7 @@ public class Deadline extends Todo {
      * @return string representation of the deadline.
      */
     public String deadlineDateTime() {
-        return this.by.format(outputFormat);
+        return this.by.format(OUTPUT_FORMAT);
     }
 
     /**

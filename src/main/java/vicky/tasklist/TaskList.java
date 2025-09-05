@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import vicky.storage.Storage;
 
-import java.time.format.DateTimeFormatter;
-
 /**
  * TaskList represents a task list of Tasks.
  *
@@ -13,10 +11,10 @@ import java.time.format.DateTimeFormatter;
  *
  */
 public class TaskList {
-    public static final String indent = "    ";
+    public static final String INDENT = "    ";
+    private static int counter;
     private final Storage storage;
     final ArrayList<Task> tasks;
-    private static int counter;
 
     /**
      * Constructor for TaskList class, initializes the TaskList task with an arraylist of tasks and storage.
@@ -46,6 +44,11 @@ public class TaskList {
         return counter;
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if task list is empty.
+     */
     public boolean isEmpty() {
         return counter == 0;
     }
@@ -70,7 +73,7 @@ public class TaskList {
     public String toString() {
         String result = "";
         for (int i = 1; i <= counter; i++) {
-            result = result + String.format(indent + "%d. %s\n", i, tasks.get(i - 1));
+            result = result + String.format(INDENT + "%d. %s\n", i, tasks.get(i - 1));
         }
         return result;
     }
@@ -82,7 +85,7 @@ public class TaskList {
      * @return unmarked task.
      * @throws IndexOutOfBoundsException if index is larger than or equals to counter.
      */
-    public Task unmarkTask(int index) throws IndexOutOfBoundsException{
+    public Task unmarkTask(int index) throws IndexOutOfBoundsException {
         if (index < counter) {
             tasks.get(index).unmark();
             return tasks.get(index);
@@ -98,7 +101,7 @@ public class TaskList {
      * @return marked task.
      * @throws IndexOutOfBoundsException if index is larger than or equals to counter.
      */
-    public Task markTask(int index) throws IndexOutOfBoundsException{
+    public Task markTask(int index) throws IndexOutOfBoundsException {
         if (index < counter) {
             tasks.get(index).mark();
             return tasks.get(index);
@@ -124,7 +127,7 @@ public class TaskList {
      * @return deleted task.
      * @throws IndexOutOfBoundsException if index is larger than or equals to counter.
      */
-    public Task deleteTask(int i) throws IndexOutOfBoundsException{
+    public Task deleteTask(int i) throws IndexOutOfBoundsException {
         if (i >= counter) {
             throw new IndexOutOfBoundsException("Nah cuh your list too short. Try again hoe!");
         } else {
