@@ -1,0 +1,10 @@
+Todo | 0 | eat
+Todo | 1 |  eat
+Deadline | 1 |  sleep | 04-09-2025 23:00
+Event | 1 |  is1108 meeting | 04-09-2025 21:30 | 04-09-2025 22:00
+Todo | 1 |  oop :(
+Todo | 0 | eat
+Deadline | 0 | finish oop | 05-09-2025 17:00
+Todo | 1 | help
+Todo | 1 | eat shit
+Todo | 1 | pee
