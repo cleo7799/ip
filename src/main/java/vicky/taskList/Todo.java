@@ -10,6 +10,10 @@ public class Todo extends Task {
         super(name, isDone);
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     @Override
     public String toStorageString() {
         int done = this.isDone ? 0 : 1;

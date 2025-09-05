@@ -29,6 +29,10 @@ public class Parser {
         return LocalDateTime.parse(s, INPUT_FORMAT);
     }
 
+    public static LocalDateTime parseOutputString(String s) throws DateTimeException {
+        return LocalDateTime.parse(s, OUTPUT_FORMAT);
+    }
+
     public static Command parse(String fullCommand) throws InvalidTaskException, InvalidInputException,
             DateTimeException, DateTimeParseException {
         String words[] = fullCommand.split(" ", 2);
