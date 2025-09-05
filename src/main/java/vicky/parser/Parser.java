@@ -1,9 +1,17 @@
 package vicky.parser;
 
-import vicky.command.*;
+import vicky.command.Command;
+import vicky.command.ListCommand;
+import vicky.command.MarkTaskCommand;
+import vicky.command.UnmarkTaskCommand;
+import vicky.command.DeleteTaskCommand;
+import vicky.command.GoodbyeCommand;
+import vicky.command.AddTodoCommand;
+import vicky.command.AddDeadlineCommand;
+import vicky.command.AddEventCommand;
+
 import vicky.exception.InvalidInputException;
 import vicky.exception.InvalidTaskException;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

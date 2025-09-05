@@ -33,11 +33,11 @@ public class Ui {
      * @param message
      */
     public String showError(String message) {
-        return INDENT + "\uD83D\uDCA9 OH SHIT!!! " + message + "\n" + printLine();
+        return INDENT + "\uD83D\uDCA9 OH SHIT!!! " + message + printLine();
     }
 
     public String showLoadingError(String message) {
-        return INDENT + "Failed to load tasks: " + message + "\n" + INDENT + "Starting with empty list.\n";
+        return INDENT + "Failed to load tasks: " + message + "\n" + INDENT + "Starting with empty list." + printLine();
     }
 
     /**
@@ -45,7 +45,7 @@ public class Ui {
      */
     public String showAddedTask(Task t, int counter) {
         return INDENT + "Ok! I've added this task:\n" + INDENT + INDENT + t.toString() + "\n" +
-                INDENT + "Now you have " + counter + " tasks in your list. :)\n" + printLine();
+                INDENT + "Now you have " + counter + " tasks in your list. :)" + printLine();
     }
 
     /**
@@ -55,7 +55,7 @@ public class Ui {
         if (tasks.isEmpty()) {
             return "You have no tasks in your list!\n";
         } else {
-            return printLine() +  "Here's your todo list:\n" + tasks.toString() + "\n" + printLine();
+            return INDENT + "Here's your todo list:\n" + tasks.toString() + printLine();
         }
     }
 
@@ -63,14 +63,14 @@ public class Ui {
      * Prints marked task.
      */
     public String showMarkedTask(Task task) {
-        return INDENT + "YAY! I've marked this task as done:\n" + INDENT + task + "\n" + printLine();
+        return INDENT + "YAY! I've marked this task as done:\n" + INDENT + task + printLine();
     }
 
     /**
      * Prints unmarked task.
      */
     public String showUnmarkedTask(Task task) {
-        return INDENT + "OK, I've marked this task as not done yet:\n" + INDENT + task + "\n" + printLine();
+        return INDENT + "OK, I've marked this task as not done yet:\n" + INDENT + task + printLine();
     }
 
     /**
@@ -82,7 +82,7 @@ public class Ui {
     public String showDeleteTask(Task task, int counter) {
         return INDENT + "Noted with many thanks! I've removed this task:\n" +
                 INDENT + INDENT + task.toString() + "\n" +
-                INDENT + "You now have " + counter + " tasks left!\n" +
+                INDENT + "You now have " + counter + " tasks left!" +
                 printLine();
     }
 
@@ -91,7 +91,7 @@ public class Ui {
      * @return
      */
     public String showIndexOutOfBounds() {
-        return INDENT + "Nah cuh your list too short. Try again hoe!\n";
+        return INDENT + "Nah cuh your list too short. Try again hoe!" + printLine();
     }
 
 }
