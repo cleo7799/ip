@@ -28,4 +28,9 @@ public class AddEventCommand extends Command {
         return ui.showAddedTask(event, tasks.len());
     }
 
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
 }

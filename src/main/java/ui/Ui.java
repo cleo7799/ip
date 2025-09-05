@@ -1,3 +1,5 @@
+package ui;
+
 import TaskList.Task;
 import TaskList.TaskList;
 
@@ -32,6 +34,10 @@ public class Ui {
      */
     public String showError(String message) {
         return INDENT + "\uD83D\uDCA9 OH SHIT!!! " + message + "\n" + printLine();
+    }
+
+    public String showLoadingError(String message) {
+        return INDENT + "Failed to load tasks: " + message + "\n" + INDENT + "Starting with empty list.\n";
     }
 
     /**

@@ -21,8 +21,32 @@ public class TaskList {
         counter = tasks.size();
     }
 
-    public int numberOfTasks() {
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+        this.storage = new Storage();
+        counter = 0;
+    }
+
+    public int len() {
         return counter;
+    }
+
+    public boolean isEmpty() {
+        return counter == 0;
+    }
+
+    public boolean hasTask(int number) {
+        return number <= counter;
+    }
+
+    /**
+     * PLEASE ADD CHECKS THAT i IS SMALLER THAN COUNTER
+     * @param i
+     * @return
+     */
+    public Task getTask(int i) {
+
+        return this.tasks.get(i);
     }
 
     /**
@@ -34,6 +58,15 @@ public class TaskList {
             System.out.printf(indent + "%d. %s\n", i, tasks.get(i - 1));
         }
         printLine();
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 1; i <= counter; i++) {
+            result = result + String.format(indent + "%d. %s\n", i, tasks.get(i - 1));
+        }
+        return result;
     }
 
     /**
@@ -48,7 +81,16 @@ public class TaskList {
             System.out.println(indent + "CHIBAI THE INDEX OUT OF BOUNDS LA");
         }
         printLine();
-        this.autoSave();
+        //this.autoSave();
+    }
+
+    public Task unmarkTask1(int index) throws IndexOutOfBoundsException{
+        if (index < counter) {
+            tasks.get(index).unmark();
+            return tasks.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("CHIBAI THE INDEX OUT OF BOUNDS LA");
+        }
     }
 
     /**
@@ -64,7 +106,24 @@ public class TaskList {
         }
 
         printLine();
-        this.autoSave();
+        //this.autoSave();
+    }
+
+    public Task markTask1(int index) throws IndexOutOfBoundsException{
+        if (index < counter) {
+            tasks.get(index).mark();
+            return tasks.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("CHIBAI THE INDEX OUT OF BOUNDS LA");
+        }
+    }
+
+    /**
+     * Adds Task into tasks ArrayList.
+     */
+    public void addTask(Task t) {
+        this.tasks.add(t);
+        counter++;
     }
 
     /**
@@ -83,9 +142,20 @@ public class TaskList {
             System.out.println(indent + "You now have " + counter + " tasks left!");
             printLine();
         }
-        this.autoSave();
+        //this.autoSave();
     }
 
+    public Task deleteTask1(int i) throws IndexOutOfBoundsException{
+        if (i > counter) {
+            throw new IndexOutOfBoundsException("Nah cuh your list too short. Try again hoe!");
+        } else {
+            Task t = tasks.remove(i - 1);
+            counter--;
+            return t;
+        }
+    }
+
+    /*
     private void autoSave() {
         try {
             this.storage.saveAllTasks(tasks);
@@ -93,6 +163,8 @@ public class TaskList {
             System.err.println("Failed to save edit: " + e.getMessage());
         }
     }
+
+     */
 
     /**
      * Prints a line.
@@ -106,24 +178,24 @@ public class TaskList {
         return LocalDateTime.parse(s, INPUT_FORMAT);
     }
 
-    private static Todo addTodo(String description) throws InvalidTaskDescriptionException {
+    private static Todo addTodo(String description) throws InvalidTaskException {
         if (description.isEmpty()) {
-            throw new InvalidTaskDescriptionException("Missing todo description.");
+            throw new InvalidTaskException("Missing todo description.");
         }
         return new Todo(description);
     }
-    private static Deadline addDeadline(String description) throws InvalidTaskDescriptionException,
-            InvalidTaskTimeException {
+
+    private static Deadline addDeadline(String description) throws InvalidTaskException, DateTimeException {
         String[] temp = description.split(" /by ");
         int len = temp.length;
         if (len == 2) {
             String task = temp[0];
             String by = temp[1];
             if (task.isEmpty()) {
-                throw new InvalidTaskDescriptionException("Missing deadline description.");
+                throw new InvalidTaskException("Missing deadline description.");
             }
             if (by.isEmpty()) {
-                throw new InvalidTaskTimeException("Missing deadline time.");
+                throw new InvalidTaskException("Missing deadline time.");
             }
 
             LocalDateTime deadline = parseInputString(by);
@@ -135,15 +207,14 @@ public class TaskList {
         }
     }
 
-    private static Event addEvent(String description) throws InvalidTaskDescriptionException,
-            InvalidTaskTimeException {
+    private static Event addEvent(String description) throws InvalidTaskException, DateTimeException {
         System.out.println("addEvent is called");
         String[] temp = description.split(" /from ");
         int len = temp.length;
         if (len == 2) {
             String task = temp[0];
             if (task.isEmpty()) {
-                throw new InvalidTaskDescriptionException("Missing event description.");
+                throw new InvalidTaskException("Missing event description.");
             }
             String[] duration = temp[1].split(" /to ");
             int len2 = duration.length;
@@ -151,16 +222,16 @@ public class TaskList {
                 String from = duration[0];
                 String by = duration[1];
                 if (from.isEmpty()) {
-                    throw new InvalidTaskTimeException("Missing event start time.");
+                    throw new InvalidTaskException("Missing event start time.");
                 } else if (by.isEmpty()) {
-                    throw new InvalidTaskTimeException("Missing event end time.");
+                    throw new InvalidTaskException("Missing event end time.");
                 }
                 LocalDateTime start = parseInputString(from);
                 LocalDateTime end = parseInputString(by);
                 return new Event(task, start, end);
 
             } else {
-                throw new InvalidTaskTimeException("Invalid event time.");
+                throw new InvalidTaskException("Invalid event time.");
             }
 
         } else {
@@ -176,7 +247,7 @@ public class TaskList {
      * @param taskType Type of task to add
      * @param description Task description and task timeframe
      */
-    public void addTask(String taskType, String description) {
+    public void addTask1(String taskType, String description) {
         Task t = null;
         try {
             switch (taskType) {
@@ -201,15 +272,9 @@ public class TaskList {
                 counter++;
                 System.out.println(indent + "Now you have " + counter + " tasks in your list. :)");
             }
-            this.autoSave();
+            //this.autoSave();
         } catch (InvalidTaskException e) {
             System.err.println("Failed to add task: " + e.getMessage());
-        } catch (InvalidTaskDescriptionException e) {
-            System.err.println("Failed to add task: " + e.getMessage());
-            //System.out.println(indent + "Oi your task cannot be empty!");
-        } catch (InvalidTaskTimeException e) {
-            System.err.println("Failed to add task: " + e.getMessage());
-            // System.out.println(indent + "Oi you never gimme the time!");
         } catch (DateTimeException e) {
             System.err.println("Failed to add task: " + e.getMessage());
         }

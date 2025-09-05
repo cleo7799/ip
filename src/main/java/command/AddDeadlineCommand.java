@@ -26,4 +26,9 @@ public class AddDeadlineCommand extends Command {
         return ui.showAddedTask(deadline, tasks.len());
     }
 
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+
 }

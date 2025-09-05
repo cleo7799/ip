@@ -1,5 +1,5 @@
+import command.*;
 import TaskList.*;
-import TaskList.Todo;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -18,64 +18,59 @@ public class Parser {
         return LocalDateTime.parse(s, INPUT_FORMAT);
     }
 
-    public static Command parse(String fullCommand) throws InvalidTaskException, DateTimeException,
-            DateTimeParseException {
+    public static Command parse(String fullCommand) throws InvalidTaskException, InvalidInputException,
+            DateTimeException, DateTimeParseException {
         String words[] = fullCommand.split(" ", 2);
         String command = words[0];
         String arguments = words.length > 1 ? words[1] : "";
 
         switch (command.toLowerCase()) {
-            case "todo":
+            case "list":
+                return new ListCommand(); //Fallthrough
+            case "unmark":
                 if (arguments.isEmpty()) {
-                    throw new InvalidTaskException("Missing todo description.");
+                    throw new InvalidTaskException("Unmark requires a task number!");
                 }
-                return new AddTodoCommand(arguments); // Fallthrough
-            case "deadline":
-                String[] temp = arguments.split(" /by ");
-                if (temp.length != 2) {
-                    throw new InvalidTaskException("Invalid deadline task.");
-                } else {
-                    String description = temp[0];
-                    String by = temp[1];
-                    if (description.isEmpty()) {
-                        throw new InvalidTaskException("Missing deadline description.");
-                    }
-                    if (by.isEmpty()) {
-                        throw new InvalidTaskException("Missing deadline time.");
-                    }
-                    LocalDateTime dateTime = parseInputString(by);
-
-                    return new AddDeadlineCommand(description, dateTime);
+                try {
+                    int num = Integer.parseInt(arguments) - 1;
+                    return new UnmarkTaskCommand(num);
+                } catch (NumberFormatException e) {
+                    throw new InvalidTaskException("Invalid task number!");
                 }
-            case "event":
-                temp = arguments.split(" /from ");
-                if (temp.length != 2) {
-                    throw new InvalidTaskException("Invalid event task.");
-                } else {
-                    String description = temp[0];
-                    if (description.isEmpty()) {
-                        throw new InvalidTaskException("Missing event description.");
-                    }
-                    String[] duration = temp[1].split(" /to ");
-                    if (duration.length != 2) {
-                        throw new InvalidTaskException("Invalid event time.");
-                    } else {
-                        String from = duration[0];
-                        String by = duration[1];
-                        if (from.isEmpty()) {
-                            throw new InvalidTaskException("Missing event start time.");
-                        }
-                        if (by.isEmpty()) {
-                            throw new InvalidTaskException("Missing event end time.");
-                        }
-                        LocalDateTime start = parseInputString(from);
-                        LocalDateTime end = parseInputString(by);
-                        return new AddEventCommand(description, start, end);
-                    }
+                //Fallthrough
+            case "mark":
+                if (arguments.isEmpty()) {
+                    throw new InvalidTaskException("Mark requires a task number!");
                 }
+                try {
+                    int num = Integer.parseInt(arguments) - 1;
+                    return new MarkTaskCommand(num);
+                } catch (NumberFormatException e) {
+                    throw new InvalidTaskException("Invalid task number!");
+                }
+                //Fallthrough
+            case "delete":
+                if (arguments.isEmpty()) {
+                    throw new InvalidTaskException("Delete requires a task number!");
+                }
+                try {
+                    int num = Integer.parseInt(arguments) - 1;
+                    return new DeleteTaskCommand(num);
+                } catch (NumberFormatException e) {
+                    throw new InvalidTaskException("Invalid task number!");
+                }
+                //Fallthrough
+            case "todo", "deadline", "event":
+                return parseTask(command, arguments);
+                //Fallthrough
+            case "bye":
+                return new GoodbyeCommand();
             default:
-                throw new InvalidTaskException("Invalid task time.");
+                throw new InvalidInputException("Bitch I don't know what that means. :(");
+                //System.out.println(ui.showError("Bitch I don't know what that means. :("));
+                //Fallthrough
         }
+
     }
 
     public static Command parseTask(String command, String arguments) throws InvalidTaskException, DateTimeException,
@@ -133,6 +128,5 @@ public class Parser {
                 throw new InvalidTaskException("Invalid task time.");
         }
     }
-
 
 }
