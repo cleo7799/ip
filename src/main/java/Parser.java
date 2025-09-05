@@ -67,8 +67,6 @@ public class Parser {
                 return new GoodbyeCommand();
             default:
                 throw new InvalidInputException("Bitch I don't know what that means. :(");
-                //System.out.println(ui.showError("Bitch I don't know what that means. :("));
-                //Fallthrough
         }
 
     }

@@ -82,15 +82,5 @@ public class Storage {
         Files.write(this.filePath, lines, StandardCharsets.UTF_8);
     }
 
-    /**
-     * Save all tasks to disk.
-     */
-    public void saveAllTasks(ArrayList<Task> tasks) throws IOException {
-        List<String> lines = new ArrayList<>(tasks.size());
-        for (Task t: tasks) {
-            lines.add(t.toStorageString());
-        }
-        Files.write(this.filePath, lines, StandardCharsets.UTF_8);
-    }
 
 }
