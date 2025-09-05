@@ -19,10 +19,11 @@ public class Vicky {
         this.storage = new Storage();
 
         try {
+            this.storage.init();
             this.tasks = new TaskList(this.storage.load(), this.storage);
         } catch (IOException e) {
             System.err.println(ui.showLoadingError(e.getMessage()));
-            this.tasks = new TaskList(); // i think your program may automatically handle error...
+            this.tasks = new TaskList();
         }
     }
 
@@ -53,71 +54,6 @@ public class Vicky {
         new Vicky().run();
     }
 
-    /*
-    public static void main(String[] args) {
-
-        Ui ui = new Ui();
-        Storage storage = new Storage();
-        Scanner scanner = null;
-
-        try {
-            scanner = new Scanner(System.in);
-            storage.init();
-            TaskList todoList = new TaskList(storage.load(), storage);
-
-            System.out.println(ui.showGreeting());
-
-            String command = scanner.next();
-            while (!(command.equals("bye"))) {
-
-                switch (command) {
-                    case "list":
-                        todoList.printList();
-                        break;
-                    case "unmark":
-                        int index = scanner.nextInt() - 1;
-                        todoList.unmarkTask(index);
-                        break;
-                    case "mark":
-                        index = scanner.nextInt() - 1;
-                        todoList.markTask(index);
-                        break;
-                    case "delete":
-                        int taskNumber = scanner.nextInt();
-                        todoList.deleteTask(taskNumber);
-                        break;
-                    case "todo", "deadline", "event":
-                        String description = scanner.nextLine();
-                        todoList.addTask(command, description);
-                        printLine();
-                        break;
-                    default:
-                        description = scanner.nextLine();
-                        System.out.println(ui.showError("Bitch I don't know what that means. :("));
-                        break;
-                }
-                command = scanner.next();
-            }
-            System.out.println(ui.showGoodbye());
-
-        } catch (IOException e) {
-            System.err.println(ui.showError("Failed to initialize storage: " + e.getMessage()));
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
-        }
-
-    }
-
-
-    public static void printLine() {
-        int length = 40;
-        System.out.println(indent + "_".repeat(length));
-    }
-
-
-     */
 }
 
 
