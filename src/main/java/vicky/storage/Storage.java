@@ -1,12 +1,14 @@
-package storage;
+package vicky.storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
-import TaskList.Task;
-import TaskList.TaskList;
+import vicky.taskList.Task;
+import vicky.taskList.TaskList;
 
 /**
  * This class represents Storage
@@ -82,15 +84,5 @@ public class Storage {
         Files.write(this.filePath, lines, StandardCharsets.UTF_8);
     }
 
-    /**
-     * Save all tasks to disk.
-     */
-    public void saveAllTasks(ArrayList<Task> tasks) throws IOException {
-        List<String> lines = new ArrayList<>(tasks.size());
-        for (Task t: tasks) {
-            lines.add(t.toStorageString());
-        }
-        Files.write(this.filePath, lines, StandardCharsets.UTF_8);
-    }
 
 }

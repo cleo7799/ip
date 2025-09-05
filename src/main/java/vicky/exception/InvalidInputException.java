@@ -1,4 +1,4 @@
-package TaskList;
+package vicky.exception;
 
 public class InvalidInputException extends RuntimeException {
     public InvalidInputException(String message) {

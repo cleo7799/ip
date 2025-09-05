@@ -1,6 +1,5 @@
-package TaskList;
+package vicky.taskList;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Event extends Deadline {

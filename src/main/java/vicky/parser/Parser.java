@@ -1,6 +1,17 @@
-import command.*;
-import TaskList.*;
+package vicky.parser;
 
+import vicky.command.Command;
+import vicky.command.ListCommand;
+import vicky.command.MarkTaskCommand;
+import vicky.command.UnmarkTaskCommand;
+import vicky.command.DeleteTaskCommand;
+import vicky.command.GoodbyeCommand;
+import vicky.command.AddTodoCommand;
+import vicky.command.AddDeadlineCommand;
+import vicky.command.AddEventCommand;
+
+import vicky.exception.InvalidInputException;
+import vicky.exception.InvalidTaskException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,8 +78,6 @@ public class Parser {
                 return new GoodbyeCommand();
             default:
                 throw new InvalidInputException("Bitch I don't know what that means. :(");
-                //System.out.println(ui.showError("Bitch I don't know what that means. :("));
-                //Fallthrough
         }
 
     }
