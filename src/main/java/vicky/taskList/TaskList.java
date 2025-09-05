@@ -6,26 +6,42 @@ import vicky.storage.Storage;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * TaskList represents a task list of Tasks.
+ *
+ * @author Rachel
+ *
+ */
 public class TaskList {
     public static final String indent = "    ";
     private final Storage storage;
     final ArrayList<Task> tasks;
     private static int counter;
-    public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
-    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+    /**
+     * Constructor for TaskList class, initializes the TaskList task with an arraylist of tasks and storage.
+     * @param tasks The arraylist of tasks.
+     * @param storage The storage object.
+     */
     public TaskList(ArrayList<Task> tasks, Storage storage) {
         this.tasks = tasks;
         this.storage = storage;
         counter = tasks.size();
     }
 
+    /**
+     * Overloaded constructor for TaskList class, initializes the TaskList task with an empty task list and storage.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
         this.storage = new Storage();
         counter = 0;
     }
 
+    /**
+     * Returns number of tasks in the tasks array.
+     * @return counter
+     */
     public int len() {
         return counter;
     }
@@ -39,15 +55,17 @@ public class TaskList {
     }
 
     /**
-     * PLEASE ADD CHECKS THAT i IS SMALLER THAN COUNTER
-     * @param i
-     * @return
+     * Returns task at specified index.
+     * @param i index of specified task.
+     * @return task.
      */
     public Task getTask(int i) {
-
         return this.tasks.get(i);
     }
 
+    /**
+     * @inheritDoc Returns the string representation of the tasklist.
+     */
     @Override
     public String toString() {
         String result = "";
@@ -58,9 +76,13 @@ public class TaskList {
     }
 
     /**
-     * Unmarks task at specified index and prints specified task.
+     * Unmarks task at specified index and returns specified task.
+     *
+     * @param index index of task to unmark.
+     * @return unmarked task.
+     * @throws IndexOutOfBoundsException if index is larger than or equals to counter.
      */
-    public Task unmarkTask1(int index) throws IndexOutOfBoundsException{
+    public Task unmarkTask(int index) throws IndexOutOfBoundsException{
         if (index < counter) {
             tasks.get(index).unmark();
             return tasks.get(index);
@@ -70,9 +92,13 @@ public class TaskList {
     }
 
     /**
-     * Marks task at specified index and prints specified task.
+     * Marks task at specified index and returns specified task.
+     *
+     * @param index index of task to mark.
+     * @return marked task.
+     * @throws IndexOutOfBoundsException if index is larger than or equals to counter.
      */
-    public Task markTask1(int index) throws IndexOutOfBoundsException{
+    public Task markTask(int index) throws IndexOutOfBoundsException{
         if (index < counter) {
             tasks.get(index).mark();
             return tasks.get(index);
@@ -83,6 +109,8 @@ public class TaskList {
 
     /**
      * Adds Task into tasks ArrayList.
+     *
+     * @param t Task to be added.
      */
     public void addTask(Task t) {
         this.tasks.add(t);
@@ -90,15 +118,17 @@ public class TaskList {
     }
 
     /**
-     * Deletes specified task from tasks
-     * If the specified index is out of bounds, an error message will be printed
-     * @param i Task number in the task list
+     * Deletes specified task from tasklist.
+     *
+     * @param i index of task to delete.
+     * @return deleted task.
+     * @throws IndexOutOfBoundsException if index is larger than or equals to counter.
      */
-    public Task deleteTask1(int i) throws IndexOutOfBoundsException{
-        if (i > counter) {
+    public Task deleteTask(int i) throws IndexOutOfBoundsException{
+        if (i >= counter) {
             throw new IndexOutOfBoundsException("Nah cuh your list too short. Try again hoe!");
         } else {
-            Task t = tasks.remove(i - 1);
+            Task t = tasks.remove(i);
             counter--;
             return t;
         }
