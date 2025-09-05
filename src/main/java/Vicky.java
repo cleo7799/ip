@@ -1,18 +1,62 @@
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.File;
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.nio.file.Files;
+
 import TaskList.TaskList;
+import TaskList.InvalidTaskException;
+import TaskList.InvalidInputException;
+import command.Command;
 import storage.Storage;
-import TaskList.Task;
+import ui.Ui;
 
 public class Vicky {
     public static final String indent = "    ";
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Vicky() {
+        this.ui = new Ui();
+        this.storage = new Storage();
+
+        try {
+            this.tasks = new TaskList(this.storage.load(), this.storage);
+        } catch (IOException e) {
+            System.err.println(ui.showLoadingError(e.getMessage()));
+            this.tasks = new TaskList(); // i think your program may automatically handle error...
+        }
+    }
+
+    public void run() {
+        System.out.print(ui.showGreeting());
+        Scanner scanner = new Scanner(System.in);
+        boolean isExit = false;
+
+        while (!isExit) {
+            String fullCommand = scanner.nextLine();
+            try {
+                Command command = Parser.parse(fullCommand);
+                String output = command.execute(tasks, ui, storage);
+                System.out.print(output);
+                isExit = command.isExit();
+
+            } catch (InvalidInputException e) {
+                System.err.print(ui.showError(e.getMessage() + "Please enter a valid command!"));
+            } catch (InvalidTaskException e) {
+                System.err.print(ui.showError(e.getMessage()));
+            } catch (Exception e) {
+                System.err.print(ui.showError(e.getMessage()));
+            }
+        }
+    }
 
     public static void main(String[] args) {
+        new Vicky().run();
+    }
 
+    /*
+    public static void main(String[] args) {
+
+        Ui ui = new Ui();
         Storage storage = new Storage();
         Scanner scanner = null;
 
@@ -21,7 +65,7 @@ public class Vicky {
             storage.init();
             TaskList todoList = new TaskList(storage.load(), storage);
 
-            greet();
+            System.out.println(ui.showGreeting());
 
             String command = scanner.next();
             while (!(command.equals("bye"))) {
@@ -49,16 +93,15 @@ public class Vicky {
                         break;
                     default:
                         description = scanner.nextLine();
-                        System.out.println(indent + "Walao eh chibai I don't know what that means :(");
-                        printLine();
+                        System.out.println(ui.showError("Bitch I don't know what that means. :("));
                         break;
                 }
                 command = scanner.next();
             }
-            goodbye();
+            System.out.println(ui.showGoodbye());
 
         } catch (IOException e) {
-            System.err.println("Failed to initialize storage: " + e.getMessage());
+            System.err.println(ui.showError("Failed to initialize storage: " + e.getMessage()));
         } finally {
             if (scanner != null) {
                 scanner.close();
@@ -67,23 +110,14 @@ public class Vicky {
 
     }
 
+
     public static void printLine() {
         int length = 40;
         System.out.println(indent + "_".repeat(length));
     }
 
-    public static void greet() {
-        // Greeting
-        printLine();
-        System.out.println(indent + "Hello! I'm Vicky\n" + indent + "What can I do for you?");
-        printLine();
-    }
 
-    public static void goodbye() {
-        // Goodbye message
-        System.out.println(indent + "Awwww :( Bye bye!!");
-        printLine();
-    }
+     */
 }
 
 

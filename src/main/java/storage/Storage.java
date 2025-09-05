@@ -6,6 +6,7 @@ import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
 import TaskList.Task;
+import TaskList.TaskList;
 
 /**
  * This class represents Storage
@@ -67,6 +68,18 @@ public class Storage {
             return tasks;
         }
 
+    }
+
+    /**
+     * Save all tasks to disk.
+     */
+    public void save(TaskList tasks) throws IOException {
+        List<String> lines = new ArrayList<>(tasks.len());
+        for (int i = 0; i < tasks.len(); i++) {
+            Task t = tasks.getTask(i);
+            lines.add(t.toStorageString());
+        }
+        Files.write(this.filePath, lines, StandardCharsets.UTF_8);
     }
 
     /**
