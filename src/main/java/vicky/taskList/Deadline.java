@@ -13,6 +13,7 @@ public class Deadline extends Todo {
 
     /**
      * Constructor for Deadline class, initializes the deadline task with a name and due time.
+     *
      * @param name The name of the task.
      * @param by The due date and time of the deadline task.
      */
@@ -23,6 +24,7 @@ public class Deadline extends Todo {
 
     /**
      * Overloaded constructor for Deadline class, initializes the deadline task with a name and due time.
+     *
      * @param name The name of the task.
      * @param by The due date and time of the deadline task.
      * @param isDone The completion status of the deadline task.

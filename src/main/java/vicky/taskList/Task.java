@@ -14,26 +14,49 @@ public abstract class Task {
     protected boolean isDone;
     public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-
+    /**
+     * Constructor for Task class, initializes the Task with a name.
+     *
+     * @param name The name of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
+    /**
+     * Overloaded constructor for Task class, initializes the Task with a name and a completion status.
+     *
+     * @param name The name of the task.
+     * @param isDone The completion status of the task.
+     */
     public Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
     }
 
+    /**
+     * Changes the completion status of the task to true.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Changes the completion status of the task to false.
+     */
     public void unmark() {
         this.isDone = false;
     }
 
 
+    /**
+     * Parses the storage string into a corresponding task object.
+     *
+     * @param s Storage string containing the details of a task.
+     * @return The corresponding task based on the storage string.
+     * @throws IllegalArgumentException if the storage string format is invalid.
+     */
     public static Task fromStorageString(String s) throws IllegalArgumentException{
         String[] temp = s.split("\\s\\|\\s");
         String taskType = temp[0];
@@ -83,10 +106,18 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Parses a string into a LocalDateTime object based on the output format.
+     *
+     * @param s The input string to be parsed.
+     * @return The parsed LocalDateTime object.
+     * @throws DateTimeException if the input string is in an invalid format.
+     */
     public static LocalDateTime parseOutputString(String s) throws DateTimeException {
         return LocalDateTime.parse(s, OUTPUT_FORMAT);
 
     }
+
     public abstract String toStorageString();
 
     @Override
