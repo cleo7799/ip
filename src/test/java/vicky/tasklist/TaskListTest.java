@@ -1,10 +1,15 @@
-package vicky.taskList;
+package vicky.tasklist;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import vicky.storage.Storage;
+
 import java.util.ArrayList;
+
+import vicky.storage.Storage;
 
 public class TaskListTest {
 
@@ -42,7 +47,7 @@ public class TaskListTest {
     public void testMarkTask() {
         Todo todo = new Todo("Test Task");
         taskList.addTask(todo);
-        taskList.markTask1(0);
+        taskList.markTask(0);
         assertTrue(todo.isDone());
     }
 
@@ -50,7 +55,7 @@ public class TaskListTest {
     public void testUnmarkTask() {
         Todo todo = new Todo("Test Task", true);
         taskList.addTask(todo);
-        taskList.unmarkTask1(0);
+        taskList.unmarkTask(0);
         assertFalse(todo.isDone());
     }
 
@@ -60,7 +65,7 @@ public class TaskListTest {
         Todo todo2 = new Todo("Test Task 2");
         taskList.addTask(todo1);
         taskList.addTask(todo2);
-        Task deletedTask = taskList.deleteTask1(1);
+        Task deletedTask = taskList.deleteTask(1);
         assertEquals(todo1, deletedTask);
         assertEquals(1, taskList.len());
     }
@@ -77,16 +82,16 @@ public class TaskListTest {
 
     @Test
     public void testMarkTaskOutOfBounds() {
-        assertThrows(IndexOutOfBoundsException.class, () -> taskList.markTask1(999));
+        assertThrows(IndexOutOfBoundsException.class, () -> taskList.markTask(999));
     }
 
     @Test
     public void testUnmarkTaskOutOfBounds() {
-        assertThrows(IndexOutOfBoundsException.class, () -> taskList.unmarkTask1(999));
+        assertThrows(IndexOutOfBoundsException.class, () -> taskList.unmarkTask(999));
     }
 
     @Test
     public void testDeleteTaskOutOfBounds() {
-        assertThrows(IndexOutOfBoundsException.class, () -> taskList.deleteTask1(999));
+        assertThrows(IndexOutOfBoundsException.class, () -> taskList.deleteTask(999));
     }
 }
