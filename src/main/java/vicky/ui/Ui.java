@@ -18,7 +18,7 @@ public class Ui {
      * Returns a welcome message.
      */
     public String showGreeting() {
-        return printLine() + INDENT + "Hello! I'm Vicky\n" + INDENT + "What can I do for you?" + printLine();
+        return printLine() + "\n" + INDENT + "Hello! I'm Vicky\n" + INDENT + "What can I do for you?" + printLine();
     }
 
     /**
@@ -53,7 +53,7 @@ public class Ui {
      */
     public String showList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            return "You have no tasks in your list!\n";
+            return INDENT + "You have no tasks in your list!" + printLine();
         } else {
             return INDENT + "Here's your todo list:\n" + tasks.toString() + printLine();
         }

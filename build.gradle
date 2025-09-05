@@ -40,7 +40,9 @@ application {
 shadowJar {
     archiveBaseName = "vicky"
     archiveClassifier = null
+    archiveFileName = 'vicky.jar'
 }
+
 
 run{
     standardInput = System.in
