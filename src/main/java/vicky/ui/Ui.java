@@ -36,6 +36,13 @@ public class Ui {
     }
 
     /**
+     * Returns a message begging user not to leave.
+     */
+    public String showDesperateGoodbye() {
+        return INDENT + "NOO PLEASE DON'T LEAVE ME!!! \uD83D\uDE2D" + printLine();
+    }
+
+    /**
      * Returns an error message.
      *
      * @param message is the error message to be shown to user.
@@ -136,6 +143,25 @@ public class Ui {
             return printLine() + INDENT + "Found it! Here are the matching tasks in your list:\n"
                     + matchingTasks.toString() + printLine();
         }
+    }
+
+    /**
+     * Returns message telling user that all tasks have been deleted.
+     *
+     * @return message.
+     */
+    public String showClearTasks() {
+        return INDENT + "Okie dokie I've cleared your list! \uD83D\uDC31" + printLine();
+    }
+
+    /**
+     * Returns message showing a heart emoji.
+     *
+     * @param str The noun that vicky loves.
+     * @return message.
+     */
+    public String showLove(String str) {
+        return INDENT + "Hehe I love " + str + " too pookie!! \u2764\uFE0F" + printLine();
     }
 
 }

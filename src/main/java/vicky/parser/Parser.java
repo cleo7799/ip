@@ -103,9 +103,19 @@ public class Parser {
                     throw new InvalidTaskException("Find requires a keyword!");
                 }
                 return new FindTasksCommand(arguments);
+            case "clear":
+                return new ClearAllTasksCommand();
+            case "love":
+                if (arguments.isEmpty()) {
+                    return new LoveCommand("you");
+                }
+                return new LoveCommand(arguments);
 
             case "bye":
-                return new GoodbyeCommand();
+                if (arguments.isEmpty()) {
+                    return new GoodbyeCommand();
+                }
+                return new DesperateGoodbyeCommand();
                 //Fallthrough
             default:
                 throw new InvalidInputException("Bitch I don't know what that means. :(");

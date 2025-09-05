@@ -149,4 +149,13 @@ public class TaskList {
         }
         return matching;
     }
+
+    /**
+     * Deletes all tasks from task list.
+     */
+    public void clearAllTasks() {
+        this.tasks.clear();
+        counter = 0;
+    }
+
 }
