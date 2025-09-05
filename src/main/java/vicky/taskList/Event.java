@@ -19,33 +19,33 @@ public class Event extends Deadline {
         this.from = from;
     }
 
-    public String startDateTime() {
+    public String getStartDateTime() {
         return this.from.format(outputFormat);
     }
 
-    public String endDateTime() {
+    public String getEndDateTime() {
         return this.by.format(outputFormat);
     }
 
-    public boolean sameDate() {
+    public boolean isSameDate() {
         return this.from.toLocalDate().equals(this.by.toLocalDate());
     }
 
-    public String endTime() {
+    public String getEndTime() {
         return this.by.toLocalTime().format(timeFormat);
     }
 
     @Override
     public String toStorageString() {
         int done = this.isDone ? 0 : 1;
-        return String.format("Event | %d | %s | %s | %s", done, this.name, this.startDateTime(), this.endDateTime());
+        return String.format("Event | %d | %s | %s | %s", done, this.name, this.getStartDateTime(), this.getEndDateTime());
     }
 
     @Override
     public String toString() {
         char p = this.isDone ? 'X' : ' ';
-        String end = this.sameDate() ? this.endTime() : this.endDateTime();
-        return String.format("[E] [%c] %s (from %s to %s)", p, this.name, this.startDateTime(), end);
+        String end = this.isSameDate() ? this.getEndTime() : this.getEndDateTime();
+        return String.format("[E] [%c] %s (from %s to %s)", p, this.name, this.getStartDateTime(), end);
     }
 
 }

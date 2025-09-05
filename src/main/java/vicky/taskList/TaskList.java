@@ -48,17 +48,6 @@ public class TaskList {
         return this.tasks.get(i);
     }
 
-    /**
-     * Prints task list.
-     */
-    public void printList() {
-        System.out.println(indent + "Here's your todo list:");
-        for (int i = 1; i <= counter; i++) {
-            System.out.printf(indent + "%d. %s\n", i, tasks.get(i - 1));
-        }
-        printLine();
-    }
-
     @Override
     public String toString() {
         String result = "";
@@ -71,18 +60,6 @@ public class TaskList {
     /**
      * Unmarks task at specified index and prints specified task.
      */
-    public void unmarkTask(int index) {
-        if (index < counter) {
-            tasks.get(index).unmark();
-            System.out.println(indent + "OK, I've marked this task as not done yet:");
-            System.out.println(indent + tasks.get(index));
-        } else {
-            System.out.println(indent + "CHIBAI THE INDEX OUT OF BOUNDS LA");
-        }
-        printLine();
-        //this.autoSave();
-    }
-
     public Task unmarkTask1(int index) throws IndexOutOfBoundsException{
         if (index < counter) {
             tasks.get(index).unmark();
@@ -126,13 +103,4 @@ public class TaskList {
             return t;
         }
     }
-
-    /**
-     * Prints a line.
-     */
-    public static void printLine() {
-        int length = 40;
-        System.out.println(indent + "_".repeat(length));
-    }
-
 }
