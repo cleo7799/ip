@@ -1,6 +1,6 @@
 package vicky.command;
 
-import vicky.taskList.TaskList;
+import vicky.tasklist.TaskList;
 import vicky.storage.Storage;
 import vicky.ui.Ui;
 

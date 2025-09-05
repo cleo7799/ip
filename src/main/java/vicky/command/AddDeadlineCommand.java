@@ -1,12 +1,15 @@
 package vicky.command;
 
-import vicky.taskList.TaskList;
-import vicky.taskList.Deadline;
-import vicky.storage.Storage;
-import vicky.ui.Ui;
-
 import java.io.IOException;
+
 import java.time.LocalDateTime;
+
+import vicky.storage.Storage;
+
+import vicky.tasklist.Deadline;
+import vicky.tasklist.TaskList;
+
+import vicky.ui.Ui;
 
 public class AddDeadlineCommand extends Command {
 

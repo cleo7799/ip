@@ -1,4 +1,4 @@
-package vicky.taskList;
+package vicky.tasklist;
 
 import java.time.LocalDateTime;
 

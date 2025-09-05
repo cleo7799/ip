@@ -1,4 +1,4 @@
-package vicky.taskList;
+package vicky.tasklist;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class TaskList {
     /**
      * Unmarks task at specified index and prints specified task.
      */
-    public Task unmarkTask1(int index) throws IndexOutOfBoundsException{
+    public Task unmarkTask(int index) throws IndexOutOfBoundsException{
         if (index < counter) {
             tasks.get(index).unmark();
             return tasks.get(index);
@@ -72,7 +72,7 @@ public class TaskList {
     /**
      * Marks task at specified index and prints specified task.
      */
-    public Task markTask1(int index) throws IndexOutOfBoundsException{
+    public Task markTask(int index) throws IndexOutOfBoundsException{
         if (index < counter) {
             tasks.get(index).mark();
             return tasks.get(index);
@@ -94,7 +94,7 @@ public class TaskList {
      * If the specified index is out of bounds, an error message will be printed
      * @param i Task number in the task list
      */
-    public Task deleteTask1(int i) throws IndexOutOfBoundsException{
+    public Task deleteTask(int i) throws IndexOutOfBoundsException{
         if (i > counter) {
             throw new IndexOutOfBoundsException("Nah cuh your list too short. Try again hoe!");
         } else {

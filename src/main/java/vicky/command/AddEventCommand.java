@@ -1,12 +1,14 @@
 package vicky.command;
 
-import vicky.taskList.TaskList;
-import vicky.taskList.Event;
-import vicky.storage.Storage;
-import vicky.ui.Ui;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
+
+import vicky.tasklist.Event;
+import vicky.tasklist.TaskList;
+
+import vicky.ui.Ui;
+
+import vicky.storage.Storage;
 
 public class AddEventCommand extends Command {
 

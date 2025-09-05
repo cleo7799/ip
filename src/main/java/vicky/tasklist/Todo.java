@@ -1,4 +1,4 @@
-package vicky.taskList;
+package vicky.tasklist;
 
 public class Todo extends Task {
 
