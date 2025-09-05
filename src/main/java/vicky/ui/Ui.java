@@ -1,7 +1,7 @@
-package ui;
+package vicky.ui;
 
-import TaskList.Task;
-import TaskList.TaskList;
+import vicky.taskList.Task;
+import vicky.taskList.TaskList;
 
 public class Ui {
 

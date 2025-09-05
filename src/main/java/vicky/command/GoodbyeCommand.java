@@ -1,8 +1,8 @@
-package command;
+package vicky.command;
 
-import TaskList.TaskList;
-import storage.Storage;
-import ui.Ui;
+import vicky.taskList.TaskList;
+import vicky.storage.Storage;
+import vicky.ui.Ui;
 
 public class GoodbyeCommand extends Command {
     @Override

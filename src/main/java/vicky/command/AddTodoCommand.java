@@ -1,9 +1,9 @@
-package command;
+package vicky.command;
 
-import TaskList.TaskList;
-import TaskList.Todo;
-import storage.Storage;
-import ui.Ui;
+import vicky.taskList.TaskList;
+import vicky.taskList.Todo;
+import vicky.storage.Storage;
+import vicky.ui.Ui;
 
 import java.io.IOException;
 

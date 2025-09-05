@@ -1,12 +1,15 @@
+package vicky.main;
+
 import java.io.IOException;
 import java.util.Scanner;
 
-import TaskList.TaskList;
-import TaskList.InvalidTaskException;
-import TaskList.InvalidInputException;
-import command.Command;
-import storage.Storage;
-import ui.Ui;
+import vicky.parser.Parser;
+import vicky.taskList.TaskList;
+import vicky.exception.InvalidTaskException;
+import vicky.exception.InvalidInputException;
+import vicky.command.Command;
+import vicky.storage.Storage;
+import vicky.ui.Ui;
 
 public class Vicky {
     public static final String indent = "    ";

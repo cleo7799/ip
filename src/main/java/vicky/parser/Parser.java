@@ -1,5 +1,8 @@
-import command.*;
-import TaskList.*;
+package vicky.parser;
+
+import vicky.command.*;
+import vicky.exception.InvalidInputException;
+import vicky.exception.InvalidTaskException;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;

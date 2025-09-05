@@ -1,12 +1,12 @@
-package storage;
+package vicky.storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
-import TaskList.Task;
-import TaskList.TaskList;
+import vicky.taskList.Task;
+import vicky.taskList.TaskList;
 
 /**
  * This class represents Storage

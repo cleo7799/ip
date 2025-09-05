@@ -1,15 +1,8 @@
-package command;
+package vicky.command;
 
-import TaskList.TaskList;
-import TaskList.Task;
-import TaskList.Todo;
-import TaskList.Deadline;
-import TaskList.Event;
-import storage.Storage;
-import ui.Ui;
-
-import java.time.LocalDateTime;
-import java.io.IOException;
+import vicky.taskList.TaskList;
+import vicky.storage.Storage;
+import vicky.ui.Ui;
 
 public abstract class Command {
 
