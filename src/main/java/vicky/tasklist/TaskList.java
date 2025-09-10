@@ -2,8 +2,6 @@ package vicky.tasklist;
 
 import java.util.ArrayList;
 
-import vicky.storage.Storage;
-
 /**
  * TaskList represents a task list of Tasks.
  *

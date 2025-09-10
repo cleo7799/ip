@@ -5,7 +5,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import vicky.command.*;
+import vicky.command.AddDeadlineCommand;
+import vicky.command.AddEventCommand;
+import vicky.command.AddTodoCommand;
+import vicky.command.ClearAllTasksCommand;
+import vicky.command.Command;
+import vicky.command.DeleteTaskCommand;
+import vicky.command.DesperateGoodbyeCommand;
+import vicky.command.FindTasksCommand;
+import vicky.command.GoodbyeCommand;
+import vicky.command.ListCommand;
+import vicky.command.LoveCommand;
+import vicky.command.MarkTaskCommand;
+import vicky.command.UnmarkTaskCommand;
 import vicky.exception.InvalidInputException;
 import vicky.exception.InvalidTaskException;
 
@@ -43,6 +55,7 @@ public class Parser {
         return LocalDateTime.parse(s, OUTPUT_FORMAT);
     }
 
+    //CHECKSTYLE.OFF: Indentation
     /**
      * Parses a full command string into a corresponding Command object.
      *
@@ -123,6 +136,7 @@ public class Parser {
 
     }
 
+
     /**
      * Parses an arguments string into a corresponding task Command object.
      *
@@ -189,5 +203,6 @@ public class Parser {
                 throw new InvalidTaskException("Invalid task time.");
         }
     }
+    //CHECKSTYLE.ON: Indentation
 
 }

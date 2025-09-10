@@ -4,6 +4,9 @@ import vicky.storage.Storage;
 import vicky.tasklist.TaskList;
 import vicky.ui.Ui;
 
+/**
+ * Class responsible for printing a love command.
+ */
 public class LoveCommand extends Command {
 
     private String str;
