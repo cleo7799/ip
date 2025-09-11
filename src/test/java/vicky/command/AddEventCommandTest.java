@@ -1,23 +1,18 @@
 package vicky.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import vicky.tasklist.Event;
 import vicky.tasklist.TaskList;
-
-import vicky.storage.Storage;
-
 import vicky.ui.Ui;
-
-import java.io.IOException;
-
-import java.time.LocalDateTime;
-
+import vicky.storage.Storage;
 
 public class AddEventCommandTest {
 
@@ -52,7 +47,7 @@ public class AddEventCommandTest {
     }
 
     @Test
-    public void testExecuteThrowsIOException() throws IOException {
+    public void testExecuteThrowsIoException() throws IOException {
         Storage faultyStorage = new Storage() {
             @Override
             public void save(TaskList taskList) throws IOException {

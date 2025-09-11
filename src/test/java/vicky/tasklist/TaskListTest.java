@@ -21,7 +21,7 @@ public class TaskListTest {
     @BeforeEach
     public void setUp() {
         storage = new Storage();
-        taskList = new TaskList(new ArrayList<>(), storage);
+        taskList = new TaskList(new ArrayList<>());
     }
 
     @Test
