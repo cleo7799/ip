@@ -18,6 +18,7 @@ public class Vicky {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isExit;
 
     /**
      * Initialises ui and storage variables when chatbot starts.
@@ -25,6 +26,7 @@ public class Vicky {
     public Vicky() {
         this.ui = new Ui();
         this.storage = new Storage();
+        this.isExit = false;
 
         try {
             this.storage.init();
@@ -61,9 +63,42 @@ public class Vicky {
         }
     }
 
+    public String getGreeting() {
+        return this.ui.showGreeting();
+    }
+
+    /** Returns a response based on user's input.
+     *
+     * @param input
+     * @return
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            String output = command.execute(tasks, ui, storage);
+            System.out.print(output);
+            this.isExit = command.isExit();
+            return output;
+
+        } catch (InvalidInputException e) {
+            return ui.showError(e.getMessage() + "Please enter a valid command!");
+        } catch (InvalidTaskException e) {
+            return ui.showError(e.getMessage());
+        } catch (Exception e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
+    public boolean isExit() {
+        return this.isExit;
+    }
+
+    /*
     public static void main(String[] args) {
         new Vicky().run();
     }
+
+     */
 
 }
 
