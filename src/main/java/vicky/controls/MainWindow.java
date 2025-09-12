@@ -1,5 +1,6 @@
 package vicky.controls;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import vicky.main.Vicky;
 
@@ -71,8 +71,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleExit() {
-        Stage stage = (Stage) this.getScene().getWindow();
-        stage.close();
+        Platform.exit();
     }
 
 }

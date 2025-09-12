@@ -25,7 +25,7 @@ public class Ui {
      * Returns a welcome message.
      */
     public String showGreeting() {
-        return "Hello! I'm Vicky\n" + "What can I do for you?";
+        return "Hello! I'm Vicky!\n" + "What can I do for you?";
     }
 
     /**
