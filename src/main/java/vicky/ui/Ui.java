@@ -126,7 +126,7 @@ public class Ui {
      * @return message.
      */
     public String showIndexOutOfBounds() {
-        return "Nah cuh your list too short. Try again hoe!" + printLine();
+        return "Nah cuh your list too short. Try again hoe!";
     }
 
     /**

@@ -312,5 +312,4 @@ public class Parser {
             }
         }
     }
-    //CHECKSTYLE.ON: Indentation
 }
