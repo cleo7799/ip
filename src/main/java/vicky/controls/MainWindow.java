@@ -37,6 +37,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Vicky instance */
     public void setVicky(Vicky v) {
         this.vicky = v;
+        assert this.vicky != null : "Vicky should be set.";
         this.handleGreet(); // shows greeting message after vicky has been initialised
     }
 
