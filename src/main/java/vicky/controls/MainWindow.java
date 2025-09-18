@@ -1,6 +1,7 @@
 package vicky.controls;
 
 import javafx.application.Platform;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import vicky.main.Vicky;
 
@@ -72,7 +74,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleExit() {
 
-        Platform.exit();
+        // Create a PauseTransition to wait for 2 seconds before closing
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+        pause.setOnFinished(event -> {
+            Platform.exit();
+        });
+
+        pause.play();
     }
 
 }
