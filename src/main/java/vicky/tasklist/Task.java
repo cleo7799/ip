@@ -4,6 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import vicky.parser.Parser;
+
 /**
  * Abstract class representing a task with a name and completion status.
  *
@@ -66,12 +68,11 @@ public abstract class Task {
      * @return The corresponding task based on the storage string.
      * @throws IllegalArgumentException if the storage string format is invalid.
      */
-    public static Task fromStorageString(String s) throws IllegalArgumentException {
+    public static Task fromStorageString(String s) throws IllegalArgumentException, DateTimeException {
         String[] temp = s.split("\\s\\|\\s");
         String taskType = temp[0];
 
         if (temp.length < 3) {
-            System.out.println("length less than 3");
             throw new IllegalArgumentException("Missing data: Only " + temp.length + " fields received.");
         }
 
@@ -86,8 +87,7 @@ public abstract class Task {
         } else if (taskStatus.equals("1")) {
             isDone = false;
         } else {
-            //System.out.println(temp[0] + temp[1] + temp[2]);
-            throw new IllegalArgumentException("Corrupted task status value: " + taskStatus); //+ taskStatus
+            throw new IllegalArgumentException("Corrupted task status value: " + taskStatus);
         }
 
         if (taskDescriptor.isEmpty()) {
@@ -101,8 +101,9 @@ public abstract class Task {
             if (temp.length != 4 || temp[3].isEmpty()) {
                 throw new IllegalArgumentException("Deadline task has missing values.");
             }
-            LocalDateTime deadline = parseOutputString(temp[3]);
-            return new Deadline(taskDescriptor, deadline, isDone); //Fallthrough
+            LocalDateTime deadline = Parser.parseOutputString(temp[3]);
+
+            return new Deadline(taskDescriptor, deadline, isDone);
         case "Event":
             if (temp.length != 5 || temp[3].isEmpty() || temp[4].isEmpty()) {
                 throw new IllegalArgumentException("Event task has missing values.");
