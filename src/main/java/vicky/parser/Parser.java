@@ -76,6 +76,7 @@ public class Parser {
             case "list":
                 return new ListCommand(); //Fallthrough
             case "unmark":
+                assert !arguments.isEmpty() : "Arguments should not be empty.";
                 if (arguments.isEmpty()) {
                     throw new InvalidTaskException("Unmark requires a task number!");
                 }
@@ -87,6 +88,7 @@ public class Parser {
                 }
                 //Fallthrough
             case "mark":
+                assert !arguments.isEmpty() : "Arguments should not be empty.";
                 if (arguments.isEmpty()) {
                     throw new InvalidTaskException("Mark requires a task number!");
                 }
@@ -98,6 +100,7 @@ public class Parser {
                 }
                 //Fallthrough
             case "delete":
+                assert !arguments.isEmpty() : "Arguments should not be empty.";
                 if (arguments.isEmpty()) {
                     throw new InvalidTaskException("Delete requires a task number!");
                 }
@@ -112,6 +115,7 @@ public class Parser {
                 return parseTask(command, arguments);
                 //Fallthrough
             case "find":
+                assert !arguments.isEmpty() : "Arguments should not be empty.";
                 if (arguments.isEmpty()) {
                     throw new InvalidTaskException("Find requires a keyword!");
                 }
@@ -119,12 +123,14 @@ public class Parser {
             case "clear":
                 return new ClearAllTasksCommand();
             case "love":
+                assert !arguments.isEmpty() : "Arguments should not be empty.";
                 if (arguments.isEmpty()) {
                     return new LoveCommand("you");
                 }
                 return new LoveCommand(arguments);
 
             case "bye":
+                assert !arguments.isEmpty() : "Arguments should not be empty.";
                 if (arguments.isEmpty()) {
                     return new GoodbyeCommand();
                 }
@@ -152,20 +158,27 @@ public class Parser {
             DateTimeParseException {
         switch (command.toLowerCase()) {
             case "todo":
+                assert !arguments.isEmpty() : "Arguments should not be empty.";
                 if (arguments.isEmpty()) {
                     throw new InvalidTaskException("Missing todo description.");
                 }
                 return new AddTodoCommand(arguments); // Fallthrough
             case "deadline":
                 String[] temp = arguments.split(" /by ");
+                assert temp.length == 2 : "Temp length should be 2.";
                 if (temp.length != 2) {
                     throw new InvalidTaskException("Invalid deadline task.");
                 } else {
                     String description = temp[0];
                     String by = temp[1];
+
+                    assert !description.isEmpty() : "Description should not be empty.";
+
                     if (description.isEmpty()) {
                         throw new InvalidTaskException("Missing deadline description.");
                     }
+
+                    assert !by.isEmpty() : "By should not be empty.";
                     if (by.isEmpty()) {
                         throw new InvalidTaskException("Missing deadline time.");
                     }
@@ -175,19 +188,27 @@ public class Parser {
                 }
             case "event":
                 temp = arguments.split(" /from ");
+
+                assert temp.length == 2 : "Temp length should be 2.";
                 if (temp.length != 2) {
                     throw new InvalidTaskException("Invalid event task.");
                 } else {
                     String description = temp[0];
+
+                    assert !description.isEmpty() : "Description should not be empty.";
                     if (description.isEmpty()) {
                         throw new InvalidTaskException("Missing event description.");
                     }
                     String[] duration = temp[1].split(" /to ");
+                    assert duration.length == 2 : "Duration length should be 2.";
                     if (duration.length != 2) {
                         throw new InvalidTaskException("Invalid event time.");
                     } else {
                         String from = duration[0];
                         String by = duration[1];
+                        assert !from.isEmpty() : "From should not be empty.";
+                        assert !by.isEmpty() : "By should not be empty.";
+
                         if (from.isEmpty()) {
                             throw new InvalidTaskException("Missing event start time.");
                         }
@@ -204,5 +225,4 @@ public class Parser {
         }
     }
     //CHECKSTYLE.ON: Indentation
-
 }

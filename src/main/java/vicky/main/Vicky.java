@@ -93,13 +93,6 @@ public class Vicky {
         return this.isExit;
     }
 
-    /*
-    public static void main(String[] args) {
-        new Vicky().run();
-    }
-
-     */
-
 }
 
 

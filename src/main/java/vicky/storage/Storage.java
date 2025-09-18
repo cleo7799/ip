@@ -77,6 +77,9 @@ public class Storage {
      * Save all tasks to disk.
      */
     public void save(TaskList tasks) throws IOException {
+
+        assert tasks != null : "TaskList is Null";
+
         List<String> lines = new ArrayList<>(tasks.len());
         for (int i = 0; i < tasks.len(); i++) {
             Task t = tasks.getTask(i);
