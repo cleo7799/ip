@@ -71,6 +71,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleExit() {
+
         Platform.exit();
     }
 
