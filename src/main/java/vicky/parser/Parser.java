@@ -5,19 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import vicky.command.AddDeadlineCommand;
-import vicky.command.AddEventCommand;
-import vicky.command.AddTodoCommand;
-import vicky.command.ClearAllTasksCommand;
-import vicky.command.Command;
-import vicky.command.DeleteTaskCommand;
-import vicky.command.DesperateGoodbyeCommand;
-import vicky.command.FindTasksCommand;
-import vicky.command.GoodbyeCommand;
-import vicky.command.ListCommand;
-import vicky.command.LoveCommand;
-import vicky.command.MarkTaskCommand;
-import vicky.command.UnmarkTaskCommand;
+import vicky.command.*;
 import vicky.exception.InvalidInputException;
 import vicky.exception.InvalidTaskException;
 
@@ -38,11 +26,16 @@ public class Parser {
      *
      * @param s The input string to be parsed.
      * @return The parsed LocalDateTime object.
-     * @throws DateTimeException if the input string is in an invalid format.
+     * @throws InvalidInputException if the input string is in an invalid format.
      */
-    public static LocalDateTime parseInputString(String s) throws DateTimeException {
-        return LocalDateTime.parse(s, INPUT_FORMAT);
+    public static LocalDateTime parseInputString(String s) throws InvalidInputException {
+        try {
+            return LocalDateTime.parse(s, INPUT_FORMAT);
+        } catch (DateTimeException e) {
+            throw new InvalidInputException("Invalid date and time format!\nAccepted formats are: ddMMyyyy HHmm.");
+        }
     }
+
 
     /**
      * Parses a string into a LocalDateTime object based on the output format.
@@ -76,7 +69,7 @@ public class Parser {
 
         switch (command.toLowerCase()) {
             case "list":
-                return new ListCommand(); //Fallthrough
+                return new ListCommand();
             case "unmark":
                 return parseUnmark(arguments);
             case "mark":
@@ -91,6 +84,8 @@ public class Parser {
                 return new ClearAllTasksCommand();
             case "love":
                 return parseLove(arguments);
+            case "change":
+                return parseChange(arguments);
             case "bye":
                 return parseBye(arguments);
             default:
@@ -202,7 +197,6 @@ public class Parser {
         return new DesperateGoodbyeCommand();
     }
 
-
     /**
      * Parses an arguments string into a corresponding task Command object.
      *
@@ -294,22 +288,166 @@ public class Parser {
             if (description.isEmpty()) {
                 throw new InvalidTaskException("Missing event description.");
             }
-            String[] duration = temp[1].split(" /to ");
-            if (duration.length != 2) {
+            String[] eventTime = temp[1].split(" /to ");
+            if (eventTime.length != 2) {
                 throw new InvalidTaskException("Invalid event time.");
             } else {
-                String from = duration[0];
-                String by = duration[1];
+                String from = eventTime[0];
+                String by = eventTime[1];
                 if (from.isEmpty()) {
                     throw new InvalidTaskException("Missing event start time.");
                 }
                 if (by.isEmpty()) {
                     throw new InvalidTaskException("Missing event end time.");
                 }
+
                 LocalDateTime start = parseInputString(from);
                 LocalDateTime end = parseInputString(by);
+                if (start.isAfter(end)) {
+                    throw new InvalidInputException("What kind of event starts after it ends?");
+                }
                 return new AddEventCommand(description, start, end);
             }
         }
     }
+
+    /**
+     * Parses the "change" command arguments to create a specific ChangeTaskCommand.
+     *
+     * @param str The arguments for the change command.
+     * @return The appropriate ChangeTaskCommand based on the type of change requested.
+     * @throws InvalidInputException if the change arguments are invalid.
+     * @throws DateTimeException if parsing new date-time values fails.
+     * @throws DateTimeParseException if date-time strings are incorrectly formatted.
+     */
+    private static Command parseChange(String str) throws InvalidInputException,
+            DateTimeException, DateTimeParseException {
+
+        if (str.isEmpty()) {
+            throw new InvalidTaskException("What do you want me to change? " +
+                    "Use your words and communicate like an adult.");
+        }
+
+        // Getting command
+        String[] words = str.split("\\s", 2);
+        String command = words[0];
+
+        // Check that str contains command and arguments
+        if (words.length != 2) {
+            throw new InvalidTaskException("Change requires a task number!");
+        }
+
+        // Getting arguments
+        String[] arguments = words[1].split("\\s/\\s");
+        if (arguments.length < 2) {
+            throw new InvalidInputException("Change requires arguments!");
+        }
+
+        // Getting task index
+        int num;
+        try {
+            num = Integer.parseInt(arguments[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskException("Invalid task number!");
+        }
+
+        switch (command.toLowerCase()) {
+            case "name":
+                return parseChangeName(num, arguments);
+            case "end":
+                return parseChangeEndTime(num, arguments);
+            case "start":
+                return parseChangeStartTime(num, arguments);
+            case "event":
+                return parseChangeEventTime(num, arguments);
+            default:
+                throw new InvalidInputException("Invalid change command!");
+        }
+
+    }
+
+    /**
+     * Parses arguments to change a task's name.
+     *
+     * @param num The index of the task to change.
+     * @param arguments The new task name.
+     * @return A ChangeTaskNameCommand for the specified task.
+     * @throws InvalidInputException if the new name is invalid.
+     */
+    private static ChangeTaskNameCommand parseChangeName(int num, String[] arguments) throws InvalidInputException {
+        String name = arguments[1];
+        if (name == null || name.isEmpty()) {
+            throw new InvalidInputException("Invalid name!");
+        }
+        return new ChangeTaskNameCommand(num, name);
+    }
+
+    /**
+     * Parses arguments to change a task's end time.
+     *
+     * @param num The index of the task to change.
+     * @param arguments The new end time as a string.
+     * @return A ChangeTaskEndTimeCommand for the specified task.
+     * @throws InvalidInputException if the new time is invalid.
+     * @throws DateTimeException if parsing fails.
+     * @throws DateTimeParseException if the string is incorrectly formatted.
+     */
+    private static ChangeTaskEndTimeCommand parseChangeEndTime(int num, String[] arguments) throws
+            InvalidInputException, DateTimeException, DateTimeParseException {
+        String s = arguments[1];
+        if (s == null || s.isEmpty()) {
+            throw new InvalidInputException("Invalid end time!");
+        }
+        LocalDateTime by = parseInputString(s);
+        return new ChangeTaskEndTimeCommand(num, by);
+    }
+
+    /**
+     * Parses arguments to change a task's start time.
+     *
+     * @param num The index of the task to change.
+     * @param arguments The new start time as a string.
+     * @return A ChangeTaskStartTimeCommand for the specified task.
+     * @throws InvalidInputException if the new time is invalid.
+     * @throws DateTimeException if parsing fails.
+     * @throws DateTimeParseException if the string is incorrectly formatted.
+     */
+    private static ChangeTaskStartTimeCommand parseChangeStartTime(int num, String[] arguments) throws
+            InvalidInputException, DateTimeException, DateTimeParseException {
+        String s = arguments[1];
+        if (s == null || s.isEmpty()) {
+            throw new InvalidInputException("Invalid start time!");
+        }
+        LocalDateTime from = parseInputString(s);
+        return new ChangeTaskStartTimeCommand(num, from);
+    }
+
+    /**
+     * Parses arguments to change an event task's start and end times.
+     *
+     * @param num The index of the task to change.
+     * @param arguments The new start and end times.
+     * @return A ChangeEventTimeCommand for the specified event task.
+     * @throws InvalidInputException if the times are missing or invalid.
+     * @throws DateTimeException if parsing fails.
+     * @throws DateTimeParseException if the strings are incorrectly formatted.
+     */
+    private static ChangeEventTimeCommand parseChangeEventTime(int num, String[] arguments) throws
+            InvalidInputException, DateTimeException, DateTimeParseException {
+        if (arguments.length != 3) {
+            throw new InvalidInputException("Changing event time requires a start and end time!");
+        }
+        String startStr = arguments[1];
+        String endStr = arguments[2];
+        if (startStr == null || startStr.isEmpty()) {
+            throw new InvalidInputException("Start time is required!");
+        }
+        if (endStr == null || endStr.isEmpty()) {
+            throw new InvalidInputException("End time is required!");
+        }
+        LocalDateTime from = parseInputString(startStr);
+        LocalDateTime by = parseInputString(endStr);
+        return new ChangeEventTimeCommand(num, from, by);
+    }
+
 }
