@@ -44,6 +44,15 @@ public class Deadline extends Todo {
     }
 
     /**
+     * Changes the deadline by to a new deadline.
+     *
+     * @param by New LocalDateTime deadline.
+     */
+    public void changeBy(LocalDateTime by) {
+        this.by = by;
+    }
+
+    /**
      * Returns a storage string of the deadline in the format:
      * "Deadline | {completion status} | {deadline name} | {end time}"
      *

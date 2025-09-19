@@ -12,7 +12,6 @@ import vicky.parser.Parser;
  * @author Rachel
  */
 public abstract class Task {
-    public static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     protected String name;
     protected boolean isDone;
 
@@ -59,6 +58,15 @@ public abstract class Task {
      */
     public boolean contains(String str) {
         return this.name.toLowerCase().contains(str);
+    }
+
+    /**
+     * Changes the name of the task to the new inputted name.
+     *
+     * @param name The new name.
+     */
+    public void changeName(String name) {
+        this.name = name;
     }
 
     /**
@@ -131,7 +139,7 @@ public abstract class Task {
         if (temp.length != 4 || temp[3].isEmpty()) {
             throw new IllegalArgumentException("Deadline task has missing values.");
         }
-        LocalDateTime deadline = parseOutputString(temp[3]);
+        LocalDateTime deadline = Parser.parseOutputString(temp[3]);
         return new Deadline(taskDescriptor, deadline, isDone);
     }
 
@@ -150,20 +158,9 @@ public abstract class Task {
         if (temp.length != 5 || temp[3].isEmpty() || temp[4].isEmpty()) {
             throw new IllegalArgumentException("Event task has missing values.");
         }
-        LocalDateTime start = parseOutputString(temp[3]);
-        LocalDateTime end = parseOutputString(temp[4]);
+        LocalDateTime start = Parser.parseOutputString(temp[3]);
+        LocalDateTime end = Parser.parseOutputString(temp[4]);
         return new Event(taskDescriptor, start, end, isDone);
-    }
-
-    /**
-     * Parses a string into a LocalDateTime object based on the output format.
-     *
-     * @param s The input string to be parsed.
-     * @return The parsed LocalDateTime object.
-     * @throws DateTimeException if the input string is in an invalid format.
-     */
-    public static LocalDateTime parseOutputString(String s) throws DateTimeException {
-        return LocalDateTime.parse(s, OUTPUT_FORMAT);
     }
 
     public abstract String toStorageString();

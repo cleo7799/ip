@@ -81,7 +81,7 @@ public class Vicky {
             return output;
 
         } catch (InvalidInputException e) {
-            return ui.showError(e.getMessage() + "Please enter a valid command!");
+            return ui.showError(e.getMessage());
         } catch (InvalidTaskException e) {
             return ui.showError(e.getMessage());
         } catch (Exception e) {

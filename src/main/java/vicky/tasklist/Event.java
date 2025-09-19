@@ -1,5 +1,7 @@
 package vicky.tasklist;
 
+import vicky.exception.InvalidInputException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -84,6 +86,36 @@ public class Event extends Deadline {
      */
     public String getEndTime() {
         return this.by.toLocalTime().format(TIME_FORMAT);
+    }
+
+    /**
+     * Changes the start time of the event to the new start time.
+     *
+     * @param from New start LocalDateTime of the event.
+     * @throws InvalidInputException if from (event start time) is after by (event end time).
+     */
+    public void changeFrom(LocalDateTime from) throws InvalidInputException {
+        if (from.isBefore(this.by)) {
+            this.from = from;
+        } else {
+            throw new InvalidInputException("What kind of event starts after it ends?");
+        }
+    }
+
+    /**
+     * Changes both the start time and end time of the event to the new start time and end time.
+     *
+     * @param from New start LocalDateTime of the event.
+     * @param by New end LocalDateTime of the event.
+     * @throws InvalidInputException if from (event start time) is after by (event end time).
+     */
+    public void changeEventTime(LocalDateTime from, LocalDateTime by) throws InvalidInputException {
+        if (from.isBefore(by)) {
+            this.from = from;
+            this.by = by;
+        } else {
+            throw new InvalidInputException("What kind of event starts after it ends?");
+        }
     }
 
     /**

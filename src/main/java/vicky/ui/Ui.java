@@ -163,4 +163,14 @@ public class Ui {
         return "Hehe I love " + str + " too pookie!! \u2764\uFE0F";
     }
 
+    /**
+     * Returns message showing the updated task.
+     *
+     * @param task Task that is updated.
+     * @return message.
+     */
+    public String showChangeTask(Task task) {
+        return "\uD83D\uDD95 Ok I've changed your task:\n" + INDENT + task;
+    }
+
 }
