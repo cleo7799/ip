@@ -103,6 +103,21 @@ public class Event extends Deadline {
     }
 
     /**
+     * Changes the end time by to a new end time.
+     *
+     * @param by New end LocalDateTime of the event.
+     * throws InvalidInputException if by (event end time) is before from (event start time).
+     */
+    @Override
+    public void changeBy(LocalDateTime by) throws InvalidInputException {
+        if (this.from.isBefore(by)) {
+            this.by = by;
+        } else {
+            throw new InvalidInputException("What kind of event starts after it ends?");
+        }
+    }
+
+    /**
      * Changes both the start time and end time of the event to the new start time and end time.
      *
      * @param from New start LocalDateTime of the event.
