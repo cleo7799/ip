@@ -1,6 +1,6 @@
 # Vicky User Guide
 
-// Product screenshot goes here
+![img.png](Ui.png)
 
 > "Your mind is for having ideas, not holding them. – David Allen ([source](https://dansilvestre.com/productivity-quotes))
 
@@ -52,7 +52,6 @@ Here's your todo list:
 [D][X] Finish assignment (by: 20-9-2025 23:59)
 [E][ ] CS2103T meeting (from 20-9-2025 15:00 to 20-9-2025 16:00)
 ```
-
 ---
 ## Adding todo task: `todo`
 Creates a todo task and adds it to the current task list.
