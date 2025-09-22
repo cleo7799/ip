@@ -237,3 +237,11 @@ Found it! Here are the matching tasks in your list:
     1. [T] [ ] finish CS2100 homework
 ```
 ---
+
+## Clearing all tasks
+Clears all tasks from the task list.
+
+### Format
+```clear```
+
+---
