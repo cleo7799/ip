@@ -223,20 +223,17 @@ Ok I've changed your task:
 ---
 
 ## Finding a task
-Finds a task by name.
+Finds tasks whose names contain any of the given keywords.
 
 ### Format
-```change event INDEX [/ START TIME] [/ END TIME]```
-* ```START TIME``` and ```END TIME``` must be in the format: ```ddMMyyyy HHmm```.
-* The start time must be before the end time.
-* * The task at ```INDEX``` must be an event task.
+```find KEYWORD(S)```
 
 ### Example Usage
-```change event 7 / 23092025 0900 / 23092025 1000```
+```find finish cs2100```
 
 ### Expected Outputs
 ```
-Ok I've changed your task:
-   [E] [ ] shower (from 23-09-2025 09:00 to 10:00)
+Found it! Here are the matching tasks in your list:
+    1. [T] [ ] finish CS2100 homework
 ```
 ---
