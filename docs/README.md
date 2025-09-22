@@ -20,22 +20,22 @@ And it's **FREE**! 💥
 
 # Quick View
 * Adding tasks:
-  * Adding Todo task: ```todo```
-  * Adding Deadline task: ```deadline```
-  * Adding Event task: ```event```
-* Listing tasks: ```list```
-* Marking a task: ```mark```
-* Unmarking a task: ```unmark```
-* Deleting a task: ```delete```
+  * Adding Todo task: `todo`
+  * Adding Deadline task: `deadline`
+  * Adding Event task: `event`
+* Listing tasks: `list`
+* Marking a task: `mark`
+* Unmarking a task: `unmark`
+* Deleting a task: `delete`
 * Changing a task:
-  * Changing a task's name: ```change name```
-  * Changing a task's end time: ```change end```
-  * Changing a task's start time: ```change start```
-  * Changing a task's start and end times: ```change event```
-* Finding a task by name: ```find```
-* Clearing all tasks: ```clear```
-* Getting Vicky to say "love": ```love```
-* Exiting: ```bye```
+  * Changing a task's name: `change name`
+  * Changing a task's end time: `change end`
+  * Changing a task's start time: `change start`
+  * Changing a task's start and end times: `change event`
+* Finding a task by name: `find`
+* Clearing all tasks: `clear`
+* Getting Vicky to say "love": `love`
+* Exiting: `bye`
 
 # Features
 
@@ -43,7 +43,9 @@ And it's **FREE**! 💥
 Displays all tasks in the current task list, showing their completion status and details.
 
 ### Example Usage
-```list```
+```
+list
+```
 
 ### Expected Outputs
 ```
@@ -57,10 +59,12 @@ Here's your todo list:
 Creates a todo task and adds it to the current task list.
 
 ### Format
-```todo NAME```
+`todo NAME`
 
 ### Example Usage
-```todo fart at my dog```
+```
+todo fart at my dog
+```
 
 ### Expected Outputs
 ```
@@ -73,11 +77,13 @@ Now you have 4 tasks in your list :)
 Creates a deadline task and adds it to the current task list.
 
 ### Format
-```deadline NAME [/by DEADLINE] ```
-* ```DEADLINE``` must be in the format: ```ddMMyyyy HHmm```.
+`deadline NAME [/by DEADLINE]`
+* `DEADLINE` must be in the format: `ddMMyyyy HHmm`.
 
 ### Example Usage
-```deadline sleep /by 22092025 2359```
+```
+deadline sleep /by 22092025 2359
+```
 
 ### Expected Outputs
 ```
@@ -90,11 +96,13 @@ Now you have 5 tasks in your list :)
 Creates an event task and adds it to the current task list.
 
 ### Format
-```event NAME [/from START TIME] [/to END TIME]```
-* ```START TIME``` and ```END TIME``` must be in the format: ```ddMMyyyy HHmm```.
+`event NAME [/from START TIME] [/to END TIME]`
+* `START TIME` and `END TIME` must be in the format: `ddMMyyyy HHmm`.
 
 ### Example Usage
-```event IS1108 Meeting /from 23092025 1400 /to 23092025 1600```
+```
+event IS1108 Meeting /from 23092025 1400 /to 23092025 1600
+```
 
 ### Expected Outputs
 ```
@@ -108,10 +116,12 @@ Now you have 6 tasks in your list :)
 Marks an existing task in the task list as completed.
 
 ### Format
-```mark INDEX ```
+`mark INDEX`
 
 ### Example Usage
-```mark 4```
+```
+mark 4
+```
 
 ### Expected Output
 ```
@@ -124,10 +134,12 @@ YAY! I've marked this task as done:
 Marks an existing task in the task list as uncompleted.
 
 ### Format
-```unmark INDEX```
+`unmark INDEX`
 
 ### Example Usage
-```unmark 4```
+```
+unmark 4
+```
 
 ### Expected Outputs
 ```
@@ -140,10 +152,12 @@ OK, I've marked this task as not done yet:
 Deletes an existing task in the task list.
 
 ### Format
-```delete INDEX```
+`delete INDEX`
 
 ### Example Usage
-```delete 4```
+```
+delete 4
+```
 
 ### Expected Outputs
 ```
@@ -156,10 +170,12 @@ You now have 5 tasks left!
 Changes the name of an existing task in the task list.
 
 ### Format
-```change name INDEX [/ NAME]```
+`change name INDEX [/ NAME]`
 
 ### Example Usage
-```change name 6 / finish CS2100 Homework```
+```
+change name 6 / finish CS2100 Homework
+```
 
 ### Expected Outputs
 ```
@@ -171,12 +187,14 @@ Ok I've changed your task:
 Changes the end time of an existing task in the task list.
 
 ### Format
-```change end INDEX [/ END TIME]```
-* ```END TIME``` must be in the format: ```ddMMyyyy HHmm```.
+`change end INDEX [/ END TIME]`
+* `END TIME` must be in the format: `ddMMyyyy HHmm`.
 * If the task is an event, the new end time must be after the start time of the event task.
 
 ### Example Usage
-```change end 2 / 22092025 2359```
+```
+change end 2 / 22092025 2359
+```
 
 ### Expected Outputs
 ```
@@ -188,13 +206,15 @@ Ok I've changed your task:
 Changes the start time of an existing event task in the task list.
 
 ### Format
-```change start INDEX [/ START TIME]```
-* ```START TIME``` must be in the format: ```ddMMyyyy HHmm```.
+`change start INDEX [/ START TIME]`
+* `START TIME` must be in the format: `ddMMyyyy HHmm`.
 * The new start time must be before the event task's end time.
-* The task at ```INDEX``` must be an event task.
+* The task at `INDEX` must be an event task.
 
 ### Example Usage
-```change start 5 / 23092025 1300```
+```
+change start 5 / 23092025 1300
+```
 
 ### Expected Outputs
 ```
@@ -206,13 +226,15 @@ Ok I've changed your task:
 Changes the start and end time of an existing event task in the task list.
 
 ### Format
-```change event INDEX [/ START TIME] [/ END TIME]```
-* ```START TIME``` and ```END TIME``` must be in the format: ```ddMMyyyy HHmm```.
+`change event INDEX [/ START TIME] [/ END TIME]`
+* `START TIME` and `END TIME` must be in the format: `ddMMyyyy HHmm`.
 * The start time must be before the end time.
-* * The task at ```INDEX``` must be an event task.
+* The task at `INDEX` must be an event task.
 
 ### Example Usage
-```change event 7 / 23092025 0900 / 23092025 1000```
+```
+change event 7 / 23092025 0900 / 23092025 1000
+```
 
 ### Expected Outputs
 ```
@@ -225,10 +247,12 @@ Ok I've changed your task:
 Finds tasks whose names contain any of the given keywords.
 
 ### Format
-```find KEYWORD(S)```
+`find KEYWORD(S)`
 
 ### Example Usage
-```find finish cs2100```
+```
+find finish cs2100
+```
 
 ### Expected Outputs
 ```
@@ -241,7 +265,7 @@ Found it! Here are the matching tasks in your list:
 Clears all tasks from the task list.
 
 ### Format
-```clear```
+`clear`
 
 ---
 
@@ -249,10 +273,12 @@ Clears all tasks from the task list.
 Makes Vicky say she loves the given keyword.
 
 ### Format
-```love KEYWORD(S)```
+`love KEYWORD(S)`
 
 ### Example Usage
-```love aaron tan```
+```
+love aaron tan
+```
 
 ### Expected Outputs
 ```
@@ -264,6 +290,6 @@ Hehe I love aaron tan too pookie!!
 Exits the program.
 
 ### Format
-```bye```
+`bye`
 
 ---
