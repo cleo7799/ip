@@ -39,7 +39,7 @@ And it's **FREE**! 💥
 
 # Features
 
-## Listing tasks
+## Listing tasks: `list`
 Displays all tasks in the current task list, showing their completion status and details.
 
 ### Example Usage
@@ -54,7 +54,7 @@ Here's your todo list:
 ```
 
 ---
-## Adding todo task
+## Adding todo task: `todo`
 Creates a todo task and adds it to the current task list.
 
 ### Format
@@ -70,7 +70,7 @@ Ok! I've added this task:
 Now you have 4 tasks in your list :)
 ```
 ---
-## Adding deadline task
+## Adding deadline task: `deadline`
 Creates a deadline task and adds it to the current task list.
 
 ### Format
@@ -87,7 +87,7 @@ Ok! I've added this task:
 Now you have 5 tasks in your list :)
 ```
 ---
-## Adding event task
+## Adding event task: `event`
 Creates an event task and adds it to the current task list.
 
 ### Format
@@ -105,7 +105,7 @@ Now you have 6 tasks in your list :)
 ```
 ---
 
-## Marking a task
+## Marking a task: `mark`
 Marks an existing task in the task list as completed.
 
 ### Format
@@ -121,7 +121,7 @@ YAY! I've marked this task as done:
 ```
 ---
 
-## Unmarking a task
+## Unmarking a task: `unmark`
 Marks an existing task in the task list as uncompleted.
 
 ### Format
@@ -137,7 +137,7 @@ OK, I've marked this task as not done yet:
 ```
 ---
 
-## Deleting a task
+## Deleting a task: `delete`
 Deletes an existing task in the task list.
 
 ### Format
@@ -153,7 +153,7 @@ Noted with many thanks! I've removed this task:
 You now have 5 tasks left!
 ```
 ---
-## Changing a task's name
+## Changing a task's name: `change name`
 Changes the name of an existing task in the task list.
 
 ### Format
@@ -168,7 +168,7 @@ Ok I've changed your task:
     [T] [ ] finish CS2100 Homework
 ```
 ---
-## Changing a task's end time
+## Changing a task's end time: `change end`
 Changes the end time of an existing task in the task list.
 
 ### Format
@@ -185,7 +185,7 @@ Ok I've changed your task:
     [D] [ ] finish ip (by: 22-09-2025 23:59)
 ```
 ---
-## Changing a task's start time
+## Changing a task's start time: `change start`
 Changes the start time of an existing event task in the task list.
 
 ### Format
@@ -203,7 +203,7 @@ Ok I've changed your task:
     [E] [ ] IS1108 Meeting (from 23-09-2025 13:00 to 16:00)
 ```
 ---
-## Changing an event's start and end time
+## Changing an event's start and end time: `change event`
 Changes the start and end time of an existing event task in the task list.
 
 ### Format
@@ -222,7 +222,7 @@ Ok I've changed your task:
 ```
 ---
 
-## Finding a task
+## Finding a task: `find`
 Finds tasks whose names contain any of the given keywords.
 
 ### Format
@@ -238,10 +238,33 @@ Found it! Here are the matching tasks in your list:
 ```
 ---
 
-## Clearing all tasks
+## Clearing all tasks: `clear`
 Clears all tasks from the task list.
 
 ### Format
 ```clear```
+
+---
+
+## Making Vicky love something: `love`
+Makes Vicky say she loves the given keyword.
+
+### Format
+```love KEYWORD(S)```
+
+### Example Usage
+```love aaron tan```
+
+### Expected Outputs
+```
+Hehe I love aaron tan too pookie!!
+```
+---
+
+## Exiting the program `bye`
+Exits the program.
+
+### Format
+```bye```
 
 ---
